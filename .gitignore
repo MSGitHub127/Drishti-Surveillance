@@ -1,0 +1,39 @@
+# Byte-compiled / optimized / DLL files
+__pycache__/
+*.py[cod]
+*.class
+
+# Environments & Dependencies
+.venv/
+venv/
+env/
+ENV/
+node_modules/
+
+# Testing & Cache
+.pytest_cache/
+.coverage
+htmlcov/
+
+# Local databases & logs
+*.log
+*.db
+*.sqlite
+*.sqlite3
+data/*.db
+data/cctv_local.db
+
+# Debug & temporary test artifacts
+test_frame.jpg
+temp_*.jpg
+temp_*.png
+tmp_*.jpg
+tmp_*.png
+
+# Secrets & Environment variables
+.env
+.env.local
+
+# Operating System Files
+.DS_Store
+Thumbs.db

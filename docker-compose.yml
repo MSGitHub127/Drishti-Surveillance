@@ -1,0 +1,103 @@
+version: '3.8'
+
+services:
+  # -------------------------------------------------------------
+  # 1. PostgreSQL 16 + PostGIS 3.4 (Spatial Database & Registry)
+  # -------------------------------------------------------------
+  postgis:
+    image: postgis/postgis:16-3.4
+    container_name: vayunotics-postgis
+    restart: unless-stopped
+    environment:
+      POSTGRES_DB: cctv_unified_db
+      POSTGRES_USER: cctv_admin
+      POSTGRES_PASSWORD: cctv_secure_pass_2026
+    ports:
+      - "5432:5432"
+    volumes:
+      - postgis_data:/var/lib/postgresql/data
+      - ./data/init_db.sql:/docker-entrypoint-initdb.d/init_db.sql:ro
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U cctv_admin -d cctv_unified_db"]
+      interval: 5s
+      timeout: 5s
+      retries: 5
+    networks:
+      - cctv_network
+
+  # -------------------------------------------------------------
+  # 2. Redis 7 (Event Bus & High-Speed Stream Queue)
+  # -------------------------------------------------------------
+  redis:
+    image: redis:7-alpine
+    container_name: vayunotics-redis
+    restart: unless-stopped
+    command: ["redis-server", "--appendonly", "yes"]
+    ports:
+      - "6379:6379"
+    volumes:
+      - redis_data:/data
+    healthcheck:
+      test: ["CMD", "redis-cli", "ping"]
+      interval: 5s
+      timeout: 3s
+      retries: 5
+    networks:
+      - cctv_network
+
+  # -------------------------------------------------------------
+  # 3. MediaMTX (RTSP to WebRTC/WHEP and HLS Media Relay)
+  # -------------------------------------------------------------
+  mediamtx:
+    image: bluenviron/mediamtx:latest
+    container_name: vayunotics-mediamtx
+    restart: unless-stopped
+    ports:
+      - "8554:8554"   # RTSP listener
+      - "8888:8888"   # HLS stream server
+      - "8889:8889"   # WebRTC / WHEP server
+    volumes:
+      - ./config/mediamtx.yml:/mediamtx.yml:ro
+    networks:
+      - cctv_network
+
+  # -------------------------------------------------------------
+  # 4. Backend Application (FastAPI, YOLO ANPR, Watchlist & Trace)
+  # -------------------------------------------------------------
+  backend:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: vayunotics-backend
+    restart: unless-stopped
+    depends_on:
+      postgis:
+        condition: service_healthy
+      redis:
+        condition: service_healthy
+    environment:
+      - DATABASE_URL=postgresql+asyncpg://cctv_admin:cctv_secure_pass_2026@postgis:5432/cctv_unified_db
+      - DB_SYNC_URL=postgresql://cctv_admin:cctv_secure_pass_2026@postgis:5432/cctv_unified_db
+      - REDIS_URL=redis://redis:6379/0
+      - MEDIAMTX_HOST=mediamtx
+      - ENVIRONMENT=production
+      - PYTHONUNBUFFERED=1
+    ports:
+      - "8000:8000"
+    volumes:
+      - ./backend:/app/backend
+      - ./frontend:/app/frontend
+      - ./data:/app/data
+      - ./test-footage:/app/test-footage
+    networks:
+      - cctv_network
+
+volumes:
+  postgis_data:
+    driver: local
+  redis_data:
+    driver: local
+
+networks:
+  cctv_network:
+    driver: bridge
