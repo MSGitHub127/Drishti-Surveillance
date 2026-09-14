@@ -75,8 +75,10 @@ The system is evaluated on **50 geographically distributed cameras** spanning **
 ## 🏗️ System Architecture
 
 <div align="center">
-  <img src="docs/assets/architecture.svg" alt="Drishti Surveillance System Architecture" width="100%" style="border-radius: 8px; border: 1px solid #1e293b;" />
-  <p align="center"><sub><b>Figure 1:</b> End-to-end 5-tier architecture connecting statewide physical camera sensors to real-time AI inference and geospatial tactical response.</sub></p>
+  <a href="docs/assets/architecture.svg" target="_blank">
+    <img src="docs/assets/architecture.png" alt="Drishti Surveillance System Architecture" width="100%" style="border-radius: 8px; border: 1px solid #1e293b;" />
+  </a>
+  <p align="center"><sub><b>Figure 1:</b> End-to-end 5-tier architecture connecting statewide physical camera sensors to real-time AI inference and geospatial tactical response. (<a href="docs/assets/architecture.svg">Open Vector SVG</a>)</sub></p>
 </div>
 
 <details>

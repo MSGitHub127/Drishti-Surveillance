@@ -1,4 +1,5 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1280 820" width="100%" height="100%" style="background:#060a12; font-family:'Google Sans', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;">
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 1280 820" width="1280" height="820" style="background:#060a12; font-family:'Google Sans', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;">
   <defs>
     <!-- Gradients -->
     <linearGradient id="bg-grad" x1="0" y1="0" x2="0" y2="1">
@@ -62,8 +63,8 @@
     <circle cx="18" cy="15" r="2.2" fill="#00f0ff"/>
     
     <text x="44" y="20" font-size="18" font-weight="800" fill="#ffffff" letter-spacing="1.5">DRISHTI SURVEILLANCE</text>
-    <text x="264" y="20" font-size="14" font-weight="600" fill="#00f0ff">• SYSTEM ARCHITECTURE &amp; PIPELINE FLOW</text>
-    <text x="44" y="37" font-size="11.5" font-weight="500" fill="#94a3b8">Statewide CCTV Federation • Multi-Scale AI Video Analytics • Gujarat Law Enforcement Intelligence (Team Vayunotics GPH26)</text>
+    <text x="320" y="20" font-size="13" font-weight="600" fill="#00f0ff">&#124; SYSTEM ARCHITECTURE &amp; PIPELINE FLOW</text>
+    <text x="44" y="37" font-size="11.5" font-weight="500" fill="#94a3b8">Statewide CCTV Federation &#8226; Multi-Scale AI Video Analytics &#8226; Gujarat Law Enforcement Intelligence (Team Vayunotics GPH26)</text>
     
     <!-- Model Architecture Badges -->
     <g transform="translate(740, 6)">
@@ -89,7 +90,7 @@
     <g transform="translate(14, 52)">
       <rect width="192" height="80" rx="8" fill="#090e18" stroke="#38bdf8" stroke-width="1" stroke-opacity="0.6"/>
       <text x="14" y="22" font-size="12" font-weight="700" fill="#ffffff">IP Cameras / RTSP</text>
-      <text x="14" y="40" font-size="10.5" fill="#94a3b8">CP PLUS • Hikvision • Dahua</text>
+      <text x="14" y="40" font-size="10.5" fill="#94a3b8">CP PLUS &#8226; Hikvision &#8226; Dahua</text>
       <text x="14" y="56" font-size="10" fill="#64748b">H.264 / H.265 / ONVIF Profile S</text>
       <rect x="14" y="63" width="65" height="12" rx="3" fill="#0369a1" fill-opacity="0.4"/>
       <text x="46" y="72" font-size="8.5" font-weight="700" fill="#38bdf8" text-anchor="middle">TCP 554/8554</text>
@@ -109,7 +110,7 @@
     <g transform="translate(14, 236)">
       <rect width="192" height="76" rx="8" fill="#090e18" stroke="#c084fc" stroke-width="1" stroke-opacity="0.6"/>
       <text x="14" y="22" font-size="12" font-weight="700" fill="#ffffff">Department VMS Nodes</text>
-      <text x="14" y="40" font-size="10.5" fill="#94a3b8">Milestone • Genetec • Pelco</text>
+      <text x="14" y="40" font-size="10.5" fill="#94a3b8">Milestone &#8226; Genetec &#8226; Pelco</text>
       <text x="14" y="56" font-size="10" fill="#64748b">26 Municipal &amp; State Depts</text>
       <rect x="14" y="61" width="68" height="12" rx="3" fill="#581c87" fill-opacity="0.4"/>
       <text x="48" y="70" font-size="8.5" font-weight="700" fill="#c084fc" text-anchor="middle">FEDERATED</text>
@@ -139,11 +140,11 @@
     <g transform="translate(14, 520)">
       <rect width="192" height="140" rx="8" fill="#070b14" stroke="#1e293b" stroke-width="1"/>
       <text x="14" y="24" font-size="11" font-weight="700" fill="#38bdf8">FEDERATION METRICS</text>
-      <text x="14" y="46" font-size="10.5" fill="#cbd5e1">• Active Eval Cams: <tspan font-weight="700" fill="#ffffff">50 Nodes</tspan></text>
-      <text x="14" y="66" font-size="10.5" fill="#cbd5e1">• State Scale Goal: <tspan font-weight="700" fill="#34d399">~80,000</tspan></text>
-      <text x="14" y="86" font-size="10.5" fill="#cbd5e1">• Districts: <tspan font-weight="700" fill="#ffffff">Valsad, Dahod,</tspan></text>
+      <text x="14" y="46" font-size="10.5" fill="#cbd5e1">&#8226; Active Eval Cams: <tspan font-weight="700" fill="#ffffff">50 Nodes</tspan></text>
+      <text x="14" y="66" font-size="10.5" fill="#cbd5e1">&#8226; State Scale Goal: <tspan font-weight="700" fill="#34d399">~80,000</tspan></text>
+      <text x="14" y="86" font-size="10.5" fill="#cbd5e1">&#8226; Districts: <tspan font-weight="700" fill="#ffffff">Valsad, Dahod,</tspan></text>
       <text x="22" y="102" font-size="10" fill="#94a3b8">Somnath, Jamnagar, Dwarka</text>
-      <text x="14" y="124" font-size="10.5" fill="#cbd5e1">• Target FPS: <tspan font-weight="700" fill="#00f0ff">25.0 Monotonic</tspan></text>
+      <text x="14" y="124" font-size="10.5" fill="#cbd5e1">&#8226; Target FPS: <tspan font-weight="700" fill="#00f0ff">25.0 Monotonic</tspan></text>
     </g>
   </g>
 
@@ -181,7 +182,7 @@
       <rect width="192" height="96" rx="8" fill="#090e18" stroke="#fbbf24" stroke-width="1" stroke-opacity="0.5"/>
       <text x="14" y="22" font-size="12" font-weight="700" fill="#ffffff">Resilience Supervisor</text>
       <text x="14" y="40" font-size="10.5" fill="#94a3b8">Exponential Backoff</text>
-      <text x="14" y="58" font-size="10" fill="#64748b">2.0s &rarr; 30.0s reconnection</text>
+      <text x="14" y="58" font-size="10" fill="#64748b">2.0s &#8594; 30.0s reconnection</text>
       <text x="14" y="72" font-size="10" fill="#64748b">Loop-cut recovery anchor</text>
       <rect x="14" y="78" width="88" height="12" rx="3" fill="#78350f" fill-opacity="0.3"/>
       <text x="58" y="87" font-size="8" font-weight="700" fill="#fbbf24" text-anchor="middle">AUTO-RECOVER</text>
@@ -202,11 +203,11 @@
     <g transform="translate(14, 492)">
       <rect width="192" height="168" rx="8" fill="#070b14" stroke="#1e293b" stroke-width="1"/>
       <text x="14" y="24" font-size="11" font-weight="700" fill="#38bdf8">BACKPRESSURE POOL</text>
-      <text x="14" y="46" font-size="10.5" fill="#cbd5e1">• ThreadPool: <tspan font-weight="700" fill="#ffffff">8 Workers</tspan></text>
-      <text x="14" y="66" font-size="10.5" fill="#cbd5e1">• Bounded Queue: <tspan font-weight="700" fill="#ffffff">500 Frames</tspan></text>
-      <text x="14" y="86" font-size="10.5" fill="#cbd5e1">• Overflow Strategy: <tspan font-weight="700" fill="#fbbf24">Drop Old</tspan></text>
-      <text x="14" y="106" font-size="10.5" fill="#cbd5e1">• Memory Protection: <tspan font-weight="700" fill="#34d399">Active</tspan></text>
-      <text x="14" y="126" font-size="10.5" fill="#cbd5e1">• Frame Throttling: <tspan font-weight="700" fill="#ffffff">PTS-Delta</tspan></text>
+      <text x="14" y="46" font-size="10.5" fill="#cbd5e1">&#8226; ThreadPool: <tspan font-weight="700" fill="#ffffff">8 Workers</tspan></text>
+      <text x="14" y="66" font-size="10.5" fill="#cbd5e1">&#8226; Bounded Queue: <tspan font-weight="700" fill="#ffffff">500 Frames</tspan></text>
+      <text x="14" y="86" font-size="10.5" fill="#cbd5e1">&#8226; Overflow Strategy: <tspan font-weight="700" fill="#fbbf24">Drop Old</tspan></text>
+      <text x="14" y="106" font-size="10.5" fill="#cbd5e1">&#8226; Memory Protection: <tspan font-weight="700" fill="#34d399">Active</tspan></text>
+      <text x="14" y="126" font-size="10.5" fill="#cbd5e1">&#8226; Frame Throttling: <tspan font-weight="700" fill="#ffffff">PTS-Delta</tspan></text>
       <text x="14" y="146" font-size="10" fill="#64748b">Zero GPU/CPU memory leaks</text>
     </g>
   </g>
@@ -252,7 +253,7 @@
     <g transform="translate(14, 318)">
       <rect width="192" height="90" rx="8" fill="#090e18" stroke="#34d399" stroke-width="1" stroke-opacity="0.6"/>
       <text x="14" y="22" font-size="12" font-weight="700" fill="#ffffff">Stage 4: Super-Res &amp; OCR</text>
-      <text x="14" y="40" font-size="10.5" fill="#94a3b8">Bicubic &ge; 70px + CLAHE 2.5</text>
+      <text x="14" y="40" font-size="10.5" fill="#94a3b8">Bicubic &#8805; 70px + CLAHE 2.5</text>
       <text x="14" y="56" font-size="10" fill="#64748b">Otsu binarization fallback</text>
       <text x="14" y="70" font-size="10" fill="#64748b">Deep EasyOCR engine</text>
       <rect x="14" y="74" width="78" height="12" rx="3" fill="#065f46" fill-opacity="0.4"/>
@@ -263,10 +264,10 @@
     <g transform="translate(14, 418)">
       <rect width="192" height="120" rx="8" fill="#090e18" stroke="#c084fc" stroke-width="1" stroke-opacity="0.6"/>
       <text x="14" y="22" font-size="12" font-weight="700" fill="#ffffff">HSRP Positional Heuristics</text>
-      <text x="14" y="40" font-size="10" fill="#cbd5e1">• Strips: <tspan fill="#c084fc">IND, INDIA, HSRP</tspan></text>
-      <text x="14" y="58" font-size="10" fill="#cbd5e1">• State [0..1]: <tspan fill="#38bdf8">6&rarr;G, 0&rarr;O</tspan></text>
-      <text x="14" y="76" font-size="10" fill="#cbd5e1">• District [2..3]: <tspan fill="#38bdf8">O&rarr;0, I&rarr;1</tspan></text>
-      <text x="14" y="94" font-size="10" fill="#cbd5e1">• Suffix [6..9]: <tspan fill="#38bdf8">S&rarr;5, Z&rarr;2</tspan></text>
+      <text x="14" y="40" font-size="10" fill="#cbd5e1">&#8226; Strips: <tspan fill="#c084fc">IND, INDIA, HSRP</tspan></text>
+      <text x="14" y="58" font-size="10" fill="#cbd5e1">&#8226; State [0..1]: <tspan fill="#38bdf8">6&#8594;G, 0&#8594;O</tspan></text>
+      <text x="14" y="76" font-size="10" fill="#cbd5e1">&#8226; District [2..3]: <tspan fill="#38bdf8">O&#8594;0, I&#8594;1</tspan></text>
+      <text x="14" y="94" font-size="10" fill="#cbd5e1">&#8226; Suffix [6..9]: <tspan fill="#38bdf8">S&#8594;5, Z&#8594;2</tspan></text>
       <rect x="14" y="101" width="92" height="12" rx="3" fill="#581c87" fill-opacity="0.4"/>
       <text x="60" y="110" font-size="8.5" font-weight="700" fill="#c084fc" text-anchor="middle">SYNTAX ENFORCED</text>
     </g>
@@ -294,8 +295,8 @@
     <g transform="translate(14, 52)">
       <rect width="192" height="104" rx="8" fill="#090e18" stroke="#ef4444" stroke-width="1" stroke-opacity="0.6"/>
       <text x="14" y="22" font-size="12" font-weight="700" fill="#ffffff">Watchlist Correlation</text>
-      <text x="14" y="40" font-size="10.5" fill="#94a3b8">Levenshtein Fuzzy (dist &le; 1)</text>
-      <text x="14" y="56" font-size="10" fill="#64748b">eGujCop • VAHAN • SARTHI</text>
+      <text x="14" y="40" font-size="10.5" fill="#94a3b8">Levenshtein Fuzzy (dist &#8804; 1)</text>
+      <text x="14" y="56" font-size="10" fill="#64748b">eGujCop &#8226; VAHAN &#8226; SARTHI</text>
       <text x="14" y="72" font-size="10" fill="#64748b">NAFIS Biometric records</text>
       <rect x="14" y="82" width="86" height="14" rx="3" fill="#7f1d1d" fill-opacity="0.5"/>
       <text x="57" y="92" font-size="8.5" font-weight="700" fill="#f87171" text-anchor="middle">INSTANT INTERCEPT</text>
@@ -316,8 +317,8 @@
       <rect width="192" height="110" rx="8" fill="#090e18" stroke="#00f0ff" stroke-width="1" stroke-opacity="0.6"/>
       <text x="14" y="22" font-size="12" font-weight="700" fill="#ffffff">Route Tracer (Scenario #1)</text>
       <text x="14" y="40" font-size="10.5" fill="#94a3b8">Chronological Polyline Path</text>
-      <text x="14" y="56" font-size="10" fill="#cbd5e1">• Haversine Distance: <tspan fill="#00f0ff">Km</tspan></text>
-      <text x="14" y="72" font-size="10" fill="#cbd5e1">• Inter-Camera Speed: <tspan fill="#00f0ff">Km/h</tspan></text>
+      <text x="14" y="56" font-size="10" fill="#cbd5e1">&#8226; Haversine Distance: <tspan fill="#00f0ff">Km</tspan></text>
+      <text x="14" y="72" font-size="10" fill="#cbd5e1">&#8226; Inter-Camera Speed: <tspan fill="#00f0ff">Km/h</tspan></text>
       <rect x="14" y="86" width="92" height="14" rx="3" fill="#0e7490" fill-opacity="0.4"/>
       <text x="60" y="96" font-size="8.5" font-weight="700" fill="#00f0ff" text-anchor="middle">PATH PREDICTION</text>
     </g>
@@ -346,9 +347,9 @@
     <g transform="translate(14, 552)">
       <rect width="192" height="108" rx="8" fill="#090e18" stroke="#34d399" stroke-width="1" stroke-opacity="0.6"/>
       <text x="14" y="22" font-size="12" font-weight="700" fill="#ffffff">Multi-Tenant RBAC</text>
-      <text x="14" y="40" font-size="10" fill="#cbd5e1">• SuperAdmin: <tspan fill="#34d399">Full Access</tspan></text>
-      <text x="14" y="56" font-size="10" fill="#cbd5e1">• Police: <tspan fill="#38bdf8">Watchlist &amp; Intercept</tspan></text>
-      <text x="14" y="72" font-size="10" fill="#cbd5e1">• RTO: <tspan fill="#fbbf24">Registration &amp; Tax</tspan></text>
+      <text x="14" y="40" font-size="10" fill="#cbd5e1">&#8226; SuperAdmin: <tspan fill="#34d399">Full Access</tspan></text>
+      <text x="14" y="56" font-size="10" fill="#cbd5e1">&#8226; Police: <tspan fill="#38bdf8">Watchlist &amp; Intercept</tspan></text>
+      <text x="14" y="72" font-size="10" fill="#cbd5e1">&#8226; RTO: <tspan fill="#fbbf24">Registration &amp; Tax</tspan></text>
       <rect x="14" y="84" width="74" height="14" rx="3" fill="#065f46" fill-opacity="0.4"/>
       <text x="51" y="94" font-size="8.5" font-weight="700" fill="#34d399" text-anchor="middle">JWT TOKENS</text>
     </g>
@@ -409,11 +410,11 @@
     <g transform="translate(14, 486)">
       <rect width="204" height="174" rx="8" fill="#070b14" stroke="#1e293b" stroke-width="1"/>
       <text x="14" y="24" font-size="11" font-weight="700" fill="#00f0ff">PLATFORM TELEMETRY</text>
-      <text x="14" y="46" font-size="10.5" fill="#cbd5e1">• UI Framework: <tspan font-weight="700" fill="#ffffff">Google Sans</tspan></text>
-      <text x="14" y="66" font-size="10.5" fill="#cbd5e1">• Font Data: <tspan font-weight="700" fill="#38bdf8">JetBrains Mono</tspan></text>
-      <text x="14" y="86" font-size="10.5" fill="#cbd5e1">• Evaluation Export: <tspan font-weight="700" fill="#34d399">JSON / MD</tspan></text>
-      <text x="14" y="106" font-size="10.5" fill="#cbd5e1">• WebSockets: <tspan font-weight="700" fill="#ffffff">Bidirectional</tspan></text>
-      <text x="14" y="126" font-size="10.5" fill="#cbd5e1">• System Uptime: <tspan font-weight="700" fill="#34d399">99.98% SLA</tspan></text>
+      <text x="14" y="46" font-size="10.5" fill="#cbd5e1">&#8226; UI Framework: <tspan font-weight="700" fill="#ffffff">Google Sans</tspan></text>
+      <text x="14" y="66" font-size="10.5" fill="#cbd5e1">&#8226; Font Data: <tspan font-weight="700" fill="#38bdf8">JetBrains Mono</tspan></text>
+      <text x="14" y="86" font-size="10.5" fill="#cbd5e1">&#8226; Evaluation Export: <tspan font-weight="700" fill="#34d399">JSON / MD</tspan></text>
+      <text x="14" y="106" font-size="10.5" fill="#cbd5e1">&#8226; WebSockets: <tspan font-weight="700" fill="#ffffff">Bidirectional</tspan></text>
+      <text x="14" y="126" font-size="10.5" fill="#cbd5e1">&#8226; System Uptime: <tspan font-weight="700" fill="#34d399">99.98% SLA</tspan></text>
       <text x="14" y="146" font-size="10" fill="#64748b">Certified by Gujarat Police Command</text>
       <rect x="14" y="154" width="96" height="12" rx="3" fill="#0369a1" fill-opacity="0.3"/>
       <text x="62" y="163" font-size="8" font-weight="700" fill="#38bdf8" text-anchor="middle">EXECUTIVE READY</text>
