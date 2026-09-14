@@ -14,11 +14,59 @@ const AppState = {
 };
 
 document.addEventListener("DOMContentLoaded", () => {
+    initTheme();
     initTabs();
     initWebSocket();
     loadInitialData();
     initGlobalEventListeners();
 });
+
+function initTheme() {
+    // Default to light mode (with regular map) as requested, or load user's saved preference
+    const savedTheme = localStorage.getItem("dhristi-theme") || "light";
+    setTheme(savedTheme, false);
+
+    const btnToggle = document.getElementById("btn-theme-toggle");
+    if (btnToggle) {
+        btnToggle.addEventListener("click", () => {
+            const currentTheme = document.documentElement.getAttribute("data-theme") || "light";
+            const nextTheme = currentTheme === "dark" ? "light" : "dark";
+            setTheme(nextTheme, true);
+        });
+    }
+}
+
+function setTheme(theme, userInitiated = false) {
+    document.documentElement.setAttribute("data-theme", theme);
+    localStorage.setItem("dhristi-theme", theme);
+
+    const sunIcon = document.getElementById("theme-icon-sun");
+    const moonIcon = document.getElementById("theme-icon-moon");
+    const label = document.getElementById("theme-toggle-text");
+
+    if (theme === "dark") {
+        if (sunIcon) sunIcon.style.display = "inline-block";
+        if (moonIcon) moonIcon.style.display = "none";
+        if (label) label.textContent = "Light Mode";
+        if (userInitiated && !localStorage.getItem("dhristi-map-manual")) {
+            if (window.GisMap) window.GisMap.setTileLayer("dark");
+            if (window.TraceEngine) window.TraceEngine.setTileLayer("dark");
+        }
+    } else {
+        if (sunIcon) sunIcon.style.display = "none";
+        if (moonIcon) moonIcon.style.display = "inline-block";
+        if (label) label.textContent = "Dark Mode";
+        if (userInitiated && !localStorage.getItem("dhristi-map-manual")) {
+            if (window.GisMap) window.GisMap.setTileLayer("regular");
+            if (window.TraceEngine) window.TraceEngine.setTileLayer("regular");
+        }
+    }
+
+    if (window.lucide) window.lucide.createIcons();
+    if (window.HealthModule && typeof window.HealthModule.refreshCharts === "function") {
+        window.HealthModule.refreshCharts();
+    }
+}
 
 function initTabs() {
     const tabs = document.querySelectorAll(".nav-tab");

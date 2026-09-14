@@ -126,6 +126,14 @@
                     <i data-lucide="volume-2"></i>
                 </button>
             </div>
+
+            <div class="theme-toggle-container">
+                <button id="btn-theme-toggle" class="theme-toggle-btn" title="Toggle Dashboard Theme (Light / Dark Mode)">
+                    <i data-lucide="sun" id="theme-icon-sun" class="theme-icon" style="display: none;"></i>
+                    <i data-lucide="moon" id="theme-icon-moon" class="theme-icon"></i>
+                    <span id="theme-toggle-text">Dark Mode</span>
+                </button>
+            </div>
         </div>
     </header>
 
@@ -241,6 +249,14 @@
                 </div>
 
                 <div class="gis-map-container">
+                    <div class="map-layer-control">
+                        <button class="btn-map-layer active" data-layer="regular" id="btn-map-layer-regular" title="Regular OpenStreetMap View">
+                            <i data-lucide="map"></i> Regular Street Map
+                        </button>
+                        <button class="btn-map-layer" data-layer="dark" id="btn-map-layer-dark" title="Tactical Dark Map View">
+                            <i data-lucide="moon"></i> Tactical Dark
+                        </button>
+                    </div>
                     <div id="map"></div>
                 </div>
             </div>
@@ -332,11 +348,17 @@
                     <div class="trace-map-box">
                         <div class="box-header">
                             <h4><i data-lucide="map-pin"></i> Chronological Route Polyline</h4>
-                            <div class="playback-controls">
-                                <button id="btn-playback-step-back" class="btn-icon btn-sm"><i data-lucide="chevron-left"></i></button>
-                                <button id="btn-playback-play" class="btn btn-sm btn-secondary"><i data-lucide="play"></i> Animate</button>
-                                <button id="btn-playback-step-fwd" class="btn-icon btn-sm"><i data-lucide="chevron-right"></i></button>
-                                <span id="playback-step-counter" class="step-badge">Step 1 / 5</span>
+                            <div style="display: flex; align-items: center; gap: 10px;">
+                                <div class="map-layer-control-inline">
+                                    <button class="btn-map-layer-sm active" data-layer="regular" id="btn-trace-map-regular" title="Regular OpenStreetMap View">Street</button>
+                                    <button class="btn-map-layer-sm" data-layer="dark" id="btn-trace-map-dark" title="Tactical Dark Map View">Dark</button>
+                                </div>
+                                <div class="playback-controls">
+                                    <button id="btn-playback-step-back" class="btn-icon btn-sm"><i data-lucide="chevron-left"></i></button>
+                                    <button id="btn-playback-play" class="btn btn-sm btn-secondary"><i data-lucide="play"></i> Animate</button>
+                                    <button id="btn-playback-step-fwd" class="btn-icon btn-sm"><i data-lucide="chevron-right"></i></button>
+                                    <span id="playback-step-counter" class="step-badge">Step 1 / 5</span>
+                                </div>
                             </div>
                         </div>
                         <div id="trace-map"></div>

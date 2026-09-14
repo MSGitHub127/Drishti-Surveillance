@@ -57,7 +57,7 @@ The system is evaluated on **50 geographically distributed cameras** spanning **
 ### 3. 🗺️ Cross-Camera Vehicle Route Tracer (Scenario #1)
 - **Trajectory Reconstruction**: Reconstructs suspect vehicle transit pathways across multiple highway checkpoints, toll plazas, and city junctions.
 - **Haversine Distance & Velocity Estimation**: Derives accurate transit speeds between camera coordinates using high-precision geographical distance formulas.
-- **Interactive Step-by-Step Playback**: Animated vector polylines guide dispatchers visually on a high-contrast dark Leaflet GIS map.
+- **Interactive Step-by-Step Playback**: Animated vector polylines guide dispatchers visually on standard OpenStreetMap or tactical dark Leaflet GIS maps.
 
 ### 4. 🚨 Watchlist Correlation & Intelligent Anti-Flood (Scenario #2)
 - **Multi-Database Ingestion**: Integrates hotlists from **eGujCop** (Gujarat Police CCTNS), **VAHAN** (Stolen/Blacklisted), **SARTHI** (Revoked Licenses), and **NAFIS** (Biometrics).
@@ -69,6 +69,11 @@ The system is evaluated on **50 geographically distributed cameras** spanning **
 - **50-Camera Responsive Grid**: Real-time camera matrix with hardware PTS overlays and status indicators.
 - **Hot-Pluggable USB Webcam (`DirectShow`)**: Plug any external webcam or laptop camera to instantly turn Camera 1 (`cam-val-001`) into a real live test feed with zero server restart.
 - **Sentinel Protocol Adherence**: Enforces `rtsp_transport=tcp`, monotonic presentation timing, exponential reconnect backoff, and loop-cut discontinuity recovery.
+
+### 6. ☀️ Daylight & 🌙 Tactical Dark Mode with Regular Street Map
+- **Regular OpenStreetMap (OSM) Integration**: Utilizes standard, colorful OpenStreetMap Leaflet tiles with real street networks, landmarks, district borders, and waterways.
+- **One-Click Map Layer Switcher**: Toggle dynamically between **Regular Street Map** and **Tactical Dark Canvas** via the in-map layer control pill.
+- **Executive Daylight Enterprise Theme**: Full Light Mode option across all dashboards, video grids, analytics cards, and modals with persistent local storage.
 
 ---
 

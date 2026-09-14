@@ -13,6 +13,10 @@ class TraceEngineController {
         this.currentStep = 0;
         this.isPlaying = false;
         this.playInterval = null;
+        this.osmLayer = null;
+        this.darkLayer = null;
+        this.currentTileLayer = null;
+        this.tileLayerType = "regular";
 
         this.init();
     }
@@ -28,17 +32,79 @@ class TraceEngineController {
 
         this.traceMap = L.map("trace-map", {
             zoomControl: true,
-            attributionControl: false
+            attributionControl: true
         }).setView([22.35, 71.85], 7);
 
-        // Clean dark GIS basemap without watermark
-        L.tileLayer("https://server.arcgisonline.com/ArcGIS/rest/services/Canvas/World_Dark_Gray_Base/MapServer/tile/{z}/{y}/{x}", {
+        // 1. Regular OpenStreetMap tile layer (Standard Leaflet Map)
+        this.osmLayer = L.tileLayer("https://tile.openstreetmap.org/{z}/{x}/{y}.png", {
+            maxZoom: 19,
+            attribution: '&copy; <a href="https://www.openstreetmap.org/copyright" target="_blank">OpenStreetMap</a> contributors'
+        });
+
+        // 2. Tactical Dark Canvas tile layer
+        this.darkLayer = L.tileLayer("https://server.arcgisonline.com/ArcGIS/rest/services/Canvas/World_Dark_Gray_Base/MapServer/tile/{z}/{y}/{x}", {
             maxZoom: 16,
-            attribution: ""
-        }).addTo(this.traceMap);
+            attribution: '&copy; Esri, HERE, Garmin'
+        });
+
+        // Default to regular or saved preference
+        const savedLayer = localStorage.getItem("dhristi-map-layer") || "regular";
+        this.setTileLayer(savedLayer);
 
         this.polylineLayer = L.layerGroup().addTo(this.traceMap);
         this.markersLayer = L.layerGroup().addTo(this.traceMap);
+
+        // Setup layer switcher listeners for trace map
+        const btnReg = document.getElementById("btn-trace-map-regular");
+        const btnDark = document.getElementById("btn-trace-map-dark");
+
+        if (btnReg) {
+            btnReg.addEventListener("click", () => {
+                this.setTileLayer("regular");
+                localStorage.setItem("dhristi-map-layer", "regular");
+                localStorage.setItem("dhristi-map-manual", "true");
+                if (window.GisMap) window.GisMap.setTileLayer("regular");
+            });
+        }
+        if (btnDark) {
+            btnDark.addEventListener("click", () => {
+                this.setTileLayer("dark");
+                localStorage.setItem("dhristi-map-layer", "dark");
+                localStorage.setItem("dhristi-map-manual", "true");
+                if (window.GisMap) window.GisMap.setTileLayer("dark");
+            });
+        }
+    }
+
+    setTileLayer(type) {
+        this.tileLayerType = type;
+        if (!this.traceMap) return;
+        if (this.currentTileLayer) {
+            this.traceMap.removeLayer(this.currentTileLayer);
+        }
+
+        if (type === "dark") {
+            this.currentTileLayer = this.darkLayer;
+        } else {
+            this.currentTileLayer = this.osmLayer;
+        }
+
+        this.currentTileLayer.addTo(this.traceMap);
+        this.updateButtons(type);
+    }
+
+    updateButtons(type) {
+        const btnReg = document.getElementById("btn-trace-map-regular");
+        const btnDark = document.getElementById("btn-trace-map-dark");
+        if (btnReg && btnDark) {
+            if (type === "dark") {
+                btnDark.classList.add("active");
+                btnReg.classList.remove("active");
+            } else {
+                btnReg.classList.add("active");
+                btnDark.classList.remove("active");
+            }
+        }
     }
 
     invalidateMapSize() {

@@ -9,6 +9,10 @@ class GisMapController {
         this.map = null;
         this.markersLayer = null;
         this.cameras = [];
+        this.osmLayer = null;
+        this.darkLayer = null;
+        this.currentTileLayer = null;
+        this.tileLayerType = "regular"; // Default: regular OpenStreetMap
         this.init();
     }
 
@@ -19,16 +23,47 @@ class GisMapController {
         // Initialize Leaflet map centered over Gujarat
         this.map = L.map("map", {
             zoomControl: true,
-            attributionControl: false
+            attributionControl: true
         }).setView([22.35, 71.85], 7);
 
-        // High-contrast dark surveillance basemap (Clean Esri Dark Canvas, zero watermark)
-        L.tileLayer("https://server.arcgisonline.com/ArcGIS/rest/services/Canvas/World_Dark_Gray_Base/MapServer/tile/{z}/{y}/{x}", {
+        // 1. Regular OpenStreetMap tile layer (Standard Leaflet Map)
+        this.osmLayer = L.tileLayer("https://tile.openstreetmap.org/{z}/{x}/{y}.png", {
+            maxZoom: 19,
+            attribution: '&copy; <a href="https://www.openstreetmap.org/copyright" target="_blank">OpenStreetMap</a> contributors'
+        });
+
+        // 2. Tactical Dark Canvas tile layer (Esri Canvas Dark)
+        this.darkLayer = L.tileLayer("https://server.arcgisonline.com/ArcGIS/rest/services/Canvas/World_Dark_Gray_Base/MapServer/tile/{z}/{y}/{x}", {
             maxZoom: 16,
-            attribution: ""
-        }).addTo(this.map);
+            attribution: '&copy; Esri, HERE, Garmin'
+        });
+
+        // Default to regular OpenStreetMap, or saved preference
+        const savedLayer = localStorage.getItem("dhristi-map-layer") || "regular";
+        this.setTileLayer(savedLayer);
 
         this.markersLayer = L.layerGroup().addTo(this.map);
+
+        // Setup layer switcher listeners
+        const btnReg = document.getElementById("btn-map-layer-regular");
+        const btnDark = document.getElementById("btn-map-layer-dark");
+
+        if (btnReg) {
+            btnReg.addEventListener("click", () => {
+                this.setTileLayer("regular");
+                localStorage.setItem("dhristi-map-layer", "regular");
+                localStorage.setItem("dhristi-map-manual", "true");
+                if (window.TraceEngine) window.TraceEngine.setTileLayer("regular");
+            });
+        }
+        if (btnDark) {
+            btnDark.addEventListener("click", () => {
+                this.setTileLayer("dark");
+                localStorage.setItem("dhristi-map-layer", "dark");
+                localStorage.setItem("dhristi-map-manual", "true");
+                if (window.TraceEngine) window.TraceEngine.setTileLayer("dark");
+            });
+        }
 
         // Setup filter listeners
         const deptFilter = document.getElementById("filter-map-dept");
@@ -44,6 +79,36 @@ class GisMapController {
             const bounds = this.map.getBounds();
             // Optional: trigger spatial API call /api/registry/bbox
         });
+    }
+
+    setTileLayer(type) {
+        this.tileLayerType = type;
+        if (this.currentTileLayer) {
+            this.map.removeLayer(this.currentTileLayer);
+        }
+
+        if (type === "dark") {
+            this.currentTileLayer = this.darkLayer;
+        } else {
+            this.currentTileLayer = this.osmLayer;
+        }
+
+        this.currentTileLayer.addTo(this.map);
+        this.updateButtons(type);
+    }
+
+    updateButtons(type) {
+        const btnReg = document.getElementById("btn-map-layer-regular");
+        const btnDark = document.getElementById("btn-map-layer-dark");
+        if (btnReg && btnDark) {
+            if (type === "dark") {
+                btnDark.classList.add("active");
+                btnReg.classList.remove("active");
+            } else {
+                btnReg.classList.add("active");
+                btnDark.classList.remove("active");
+            }
+        }
     }
 
     invalidateSize() {
