@@ -1,0 +1,446 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1280 820" width="100%" height="100%" style="background:#060a12; font-family:'Google Sans', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;">
+  <defs>
+    <!-- Gradients -->
+    <linearGradient id="bg-grad" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#080e1a"/>
+      <stop offset="50%" stop-color="#060a12"/>
+      <stop offset="100%" stop-color="#04070d"/>
+    </linearGradient>
+
+    <linearGradient id="panel-grad" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#0f172a" stop-opacity="0.9"/>
+      <stop offset="100%" stop-color="#0b1120" stop-opacity="0.95"/>
+    </linearGradient>
+
+    <linearGradient id="header-grad" x1="0" y1="0" x2="1" y2="0">
+      <stop offset="0%" stop-color="#00f0ff"/>
+      <stop offset="50%" stop-color="#38bdf8"/>
+      <stop offset="100%" stop-color="#818cf8"/>
+    </linearGradient>
+
+    <!-- Filters -->
+    <filter id="glow-cyan" x="-20%" y="-20%" width="140%" height="140%">
+      <feDropShadow dx="0" dy="0" stdDeviation="4" flood-color="#00f0ff" flood-opacity="0.4"/>
+    </filter>
+    <filter id="card-shadow" x="-10%" y="-10%" width="120%" height="120%">
+      <feDropShadow dx="0" dy="4" stdDeviation="6" flood-color="#000000" flood-opacity="0.6"/>
+    </filter>
+
+    <!-- Markers -->
+    <marker id="arrow-cyan" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto">
+      <path d="M 0 1 L 9 5 L 0 9 z" fill="#00f0ff"/>
+    </marker>
+    <marker id="arrow-blue" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto">
+      <path d="M 0 1 L 9 5 L 0 9 z" fill="#38bdf8"/>
+    </marker>
+    <marker id="arrow-amber" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto">
+      <path d="M 0 1 L 9 5 L 0 9 z" fill="#fbbf24"/>
+    </marker>
+    <marker id="arrow-green" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto">
+      <path d="M 0 1 L 9 5 L 0 9 z" fill="#34d399"/>
+    </marker>
+
+    <!-- Pattern -->
+    <pattern id="tech-grid" width="32" height="32" patternUnits="userSpaceOnUse">
+      <path d="M 32 0 L 0 0 0 32" fill="none" stroke="#1e293b" stroke-width="0.5" stroke-opacity="0.3"/>
+    </pattern>
+  </defs>
+
+  <!-- Background Base -->
+  <rect width="1280" height="820" fill="url(#bg-grad)"/>
+  <rect width="1280" height="820" fill="url(#tech-grid)"/>
+
+  <!-- Master Canvas Border -->
+  <rect x="12" y="12" width="1256" height="796" rx="14" fill="none" stroke="#1e293b" stroke-width="1.5"/>
+  <rect x="13" y="13" width="1254" height="794" rx="13" fill="none" stroke="#00f0ff" stroke-width="0.5" stroke-opacity="0.2"/>
+
+  <!-- ==================== HEADER BAR ==================== -->
+  <g transform="translate(36, 32)">
+    <!-- Tactical Logo Symbol -->
+    <path d="M 18 2 L 32 8 C 32 18 25 28 18 34 C 11 28 4 18 4 8 Z" fill="#0f172a" stroke="#00f0ff" stroke-width="1.8" filter="url(#glow-cyan)"/>
+    <circle cx="18" cy="15" r="5" fill="none" stroke="#38bdf8" stroke-width="1.2" stroke-dasharray="2 1.5"/>
+    <circle cx="18" cy="15" r="2.2" fill="#00f0ff"/>
+    
+    <text x="44" y="20" font-size="18" font-weight="800" fill="#ffffff" letter-spacing="1.5">DRISHTI SURVEILLANCE</text>
+    <text x="264" y="20" font-size="14" font-weight="600" fill="#00f0ff">• SYSTEM ARCHITECTURE &amp; PIPELINE FLOW</text>
+    <text x="44" y="37" font-size="11.5" font-weight="500" fill="#94a3b8">Statewide CCTV Federation • Multi-Scale AI Video Analytics • Gujarat Law Enforcement Intelligence (Team Vayunotics GPH26)</text>
+    
+    <!-- Model Architecture Badges -->
+    <g transform="translate(740, 6)">
+      <rect x="0" y="0" width="145" height="26" rx="6" fill="#0f172a" stroke="#38bdf8" stroke-width="1"/>
+      <text x="72" y="17" font-size="10.5" font-weight="700" fill="#38bdf8" text-anchor="middle">MODEL 1: GIS REGISTRY</text>
+      
+      <rect x="155" y="0" width="155" height="26" rx="6" fill="#0f172a" stroke="#00f0ff" stroke-width="1"/>
+      <text x="232" y="17" font-size="10.5" font-weight="700" fill="#00f0ff" text-anchor="middle">MODEL 3: VMS FEDERATION</text>
+      
+      <rect x="320" y="0" width="150" height="26" rx="6" fill="#0f172a" stroke="#34d399" stroke-width="1"/>
+      <text x="395" y="17" font-size="10.5" font-weight="700" fill="#34d399" text-anchor="middle">MODEL 2: STREAM RELAY</text>
+    </g>
+  </g>
+
+  <!-- ==================== COLUMN 1: HETEROGENEOUS INGESTION ==================== -->
+  <g transform="translate(36, 100)">
+    <rect width="220" height="680" rx="10" fill="url(#panel-grad)" stroke="#1e293b" stroke-width="1.5" filter="url(#card-shadow)"/>
+    <rect x="0" y="0" width="220" height="36" rx="10" fill="#1e293b" fill-opacity="0.6"/>
+    <circle cx="20" cy="18" r="4" fill="#00f0ff"/>
+    <text x="32" y="22" font-size="12" font-weight="700" fill="#ffffff" letter-spacing="0.5">1. INGESTION LAYER</text>
+
+    <!-- Source 1: IP Cameras -->
+    <g transform="translate(14, 52)">
+      <rect width="192" height="80" rx="8" fill="#090e18" stroke="#38bdf8" stroke-width="1" stroke-opacity="0.6"/>
+      <text x="14" y="22" font-size="12" font-weight="700" fill="#ffffff">IP Cameras / RTSP</text>
+      <text x="14" y="40" font-size="10.5" fill="#94a3b8">CP PLUS • Hikvision • Dahua</text>
+      <text x="14" y="56" font-size="10" fill="#64748b">H.264 / H.265 / ONVIF Profile S</text>
+      <rect x="14" y="63" width="65" height="12" rx="3" fill="#0369a1" fill-opacity="0.4"/>
+      <text x="46" y="72" font-size="8.5" font-weight="700" fill="#38bdf8" text-anchor="middle">TCP 554/8554</text>
+    </g>
+
+    <!-- Source 2: USB Webcams -->
+    <g transform="translate(14, 146)">
+      <rect width="192" height="76" rx="8" fill="#090e18" stroke="#34d399" stroke-width="1" stroke-opacity="0.6"/>
+      <text x="14" y="22" font-size="12" font-weight="700" fill="#ffffff">Live USB Webcams</text>
+      <text x="14" y="40" font-size="10.5" fill="#94a3b8">DirectShow (cv2.CAP_DSHOW)</text>
+      <text x="14" y="56" font-size="10" fill="#64748b">Hot-Pluggable Camera 1 Ingest</text>
+      <rect x="14" y="61" width="74" height="12" rx="3" fill="#065f46" fill-opacity="0.4"/>
+      <text x="51" y="70" font-size="8.5" font-weight="700" fill="#34d399" text-anchor="middle">PLUG &amp; PLAY</text>
+    </g>
+
+    <!-- Source 3: Existing VMS -->
+    <g transform="translate(14, 236)">
+      <rect width="192" height="76" rx="8" fill="#090e18" stroke="#c084fc" stroke-width="1" stroke-opacity="0.6"/>
+      <text x="14" y="22" font-size="12" font-weight="700" fill="#ffffff">Department VMS Nodes</text>
+      <text x="14" y="40" font-size="10.5" fill="#94a3b8">Milestone • Genetec • Pelco</text>
+      <text x="14" y="56" font-size="10" fill="#64748b">26 Municipal &amp; State Depts</text>
+      <rect x="14" y="61" width="68" height="12" rx="3" fill="#581c87" fill-opacity="0.4"/>
+      <text x="48" y="70" font-size="8.5" font-weight="700" fill="#c084fc" text-anchor="middle">FEDERATED</text>
+    </g>
+
+    <!-- Source 4: DVR / NVR Recorded Clips -->
+    <g transform="translate(14, 326)">
+      <rect width="192" height="80" rx="8" fill="#090e18" stroke="#f59e0b" stroke-width="1" stroke-opacity="0.6"/>
+      <text x="14" y="22" font-size="12" font-weight="700" fill="#ffffff">DVR / NVR Video Clips</text>
+      <text x="14" y="40" font-size="10.5" fill="#94a3b8">Recorded Incident Exports</text>
+      <text x="14" y="56" font-size="10" fill="#64748b">MP4, AVI, MKV, MOV up to 50MB</text>
+      <rect x="14" y="63" width="68" height="12" rx="3" fill="#78350f" fill-opacity="0.4"/>
+      <text x="48" y="72" font-size="8.5" font-weight="700" fill="#fbbf24" text-anchor="middle">FORENSICS</text>
+    </g>
+
+    <!-- Source 5: Still Images -->
+    <g transform="translate(14, 420)">
+      <rect width="192" height="76" rx="8" fill="#090e18" stroke="#00f0ff" stroke-width="1" stroke-opacity="0.6"/>
+      <text x="14" y="22" font-size="12" font-weight="700" fill="#ffffff">CCTV Still Snapshots</text>
+      <text x="14" y="40" font-size="10.5" fill="#94a3b8">High-Res Frame Captures</text>
+      <text x="14" y="56" font-size="10" fill="#64748b">1080p / 4K JPG, PNG, WEBP</text>
+      <rect x="14" y="61" width="74" height="12" rx="3" fill="#0e7490" fill-opacity="0.4"/>
+      <text x="51" y="70" font-size="8.5" font-weight="700" fill="#00f0ff" text-anchor="middle">SNAPSHOT</text>
+    </g>
+
+    <!-- Ingestion Stats Summary -->
+    <g transform="translate(14, 520)">
+      <rect width="192" height="140" rx="8" fill="#070b14" stroke="#1e293b" stroke-width="1"/>
+      <text x="14" y="24" font-size="11" font-weight="700" fill="#38bdf8">FEDERATION METRICS</text>
+      <text x="14" y="46" font-size="10.5" fill="#cbd5e1">• Active Eval Cams: <tspan font-weight="700" fill="#ffffff">50 Nodes</tspan></text>
+      <text x="14" y="66" font-size="10.5" fill="#cbd5e1">• State Scale Goal: <tspan font-weight="700" fill="#34d399">~80,000</tspan></text>
+      <text x="14" y="86" font-size="10.5" fill="#cbd5e1">• Districts: <tspan font-weight="700" fill="#ffffff">Valsad, Dahod,</tspan></text>
+      <text x="22" y="102" font-size="10" fill="#94a3b8">Somnath, Jamnagar, Dwarka</text>
+      <text x="14" y="124" font-size="10.5" fill="#cbd5e1">• Target FPS: <tspan font-weight="700" fill="#00f0ff">25.0 Monotonic</tspan></text>
+    </g>
+  </g>
+
+  <!-- ==================== COLUMN 2: SENTINEL STREAM GATEWAY ==================== -->
+  <g transform="translate(280, 100)">
+    <rect width="220" height="680" rx="10" fill="url(#panel-grad)" stroke="#1e293b" stroke-width="1.5" filter="url(#card-shadow)"/>
+    <rect x="0" y="0" width="220" height="36" rx="10" fill="#1e293b" fill-opacity="0.6"/>
+    <circle cx="20" cy="18" r="4" fill="#38bdf8"/>
+    <text x="32" y="22" font-size="12" font-weight="700" fill="#ffffff" letter-spacing="0.5">2. SENTINEL GATEWAY</text>
+
+    <!-- Core 1: TCP Enforcer -->
+    <g transform="translate(14, 52)">
+      <rect width="192" height="96" rx="8" fill="#090e18" stroke="#38bdf8" stroke-width="1" stroke-opacity="0.5"/>
+      <text x="14" y="22" font-size="12" font-weight="700" fill="#ffffff">RTSP/TCP Enforcer</text>
+      <text x="14" y="40" font-size="10.5" fill="#94a3b8">rtsp_transport=tcp</text>
+      <text x="14" y="58" font-size="10" fill="#64748b">Eliminates UDP packet drops,</text>
+      <text x="14" y="72" font-size="10" fill="#64748b">smearing &amp; macroblocking</text>
+      <rect x="14" y="78" width="86" height="12" rx="3" fill="#0369a1" fill-opacity="0.3"/>
+      <text x="57" y="87" font-size="8" font-weight="700" fill="#38bdf8" text-anchor="middle">ZERO ARTIFACTS</text>
+    </g>
+
+    <!-- Core 2: Monotonic PTS Engine -->
+    <g transform="translate(14, 162)">
+      <rect width="192" height="96" rx="8" fill="#090e18" stroke="#00f0ff" stroke-width="1" stroke-opacity="0.5"/>
+      <text x="14" y="22" font-size="12" font-weight="700" fill="#ffffff">Monotonic PTS Engine</text>
+      <text x="14" y="40" font-size="10.5" fill="#94a3b8">CAP_PROP_POS_MSEC</text>
+      <text x="14" y="58" font-size="10" fill="#64748b">Hardware PTS timestamping</text>
+      <text x="14" y="72" font-size="10" fill="#64748b">Immune to clock desync</text>
+      <rect x="14" y="78" width="80" height="12" rx="3" fill="#0e7490" fill-opacity="0.3"/>
+      <text x="54" y="87" font-size="8" font-weight="700" fill="#00f0ff" text-anchor="middle">TRUE VELOCITY</text>
+    </g>
+
+    <!-- Core 3: Reconnect Supervisor -->
+    <g transform="translate(14, 272)">
+      <rect width="192" height="96" rx="8" fill="#090e18" stroke="#fbbf24" stroke-width="1" stroke-opacity="0.5"/>
+      <text x="14" y="22" font-size="12" font-weight="700" fill="#ffffff">Resilience Supervisor</text>
+      <text x="14" y="40" font-size="10.5" fill="#94a3b8">Exponential Backoff</text>
+      <text x="14" y="58" font-size="10" fill="#64748b">2.0s &rarr; 30.0s reconnection</text>
+      <text x="14" y="72" font-size="10" fill="#64748b">Loop-cut recovery anchor</text>
+      <rect x="14" y="78" width="88" height="12" rx="3" fill="#78350f" fill-opacity="0.3"/>
+      <text x="58" y="87" font-size="8" font-weight="700" fill="#fbbf24" text-anchor="middle">AUTO-RECOVER</text>
+    </g>
+
+    <!-- Core 4: MediaMTX Edge Relay -->
+    <g transform="translate(14, 382)">
+      <rect width="192" height="96" rx="8" fill="#090e18" stroke="#34d399" stroke-width="1" stroke-opacity="0.5"/>
+      <text x="14" y="22" font-size="12" font-weight="700" fill="#ffffff">MediaMTX Edge Relay</text>
+      <text x="14" y="40" font-size="10.5" fill="#94a3b8">WHEP / WebRTC / HLS</text>
+      <text x="14" y="58" font-size="10" fill="#64748b">Sub-500ms browser latency</text>
+      <text x="14" y="72" font-size="10" fill="#64748b">Low bandwidth multiplexer</text>
+      <rect x="14" y="78" width="82" height="12" rx="3" fill="#065f46" fill-opacity="0.3"/>
+      <text x="55" y="87" font-size="8" font-weight="700" fill="#34d399" text-anchor="middle">SUB-500MS</text>
+    </g>
+
+    <!-- Worker Pool Throttler -->
+    <g transform="translate(14, 492)">
+      <rect width="192" height="168" rx="8" fill="#070b14" stroke="#1e293b" stroke-width="1"/>
+      <text x="14" y="24" font-size="11" font-weight="700" fill="#38bdf8">BACKPRESSURE POOL</text>
+      <text x="14" y="46" font-size="10.5" fill="#cbd5e1">• ThreadPool: <tspan font-weight="700" fill="#ffffff">8 Workers</tspan></text>
+      <text x="14" y="66" font-size="10.5" fill="#cbd5e1">• Bounded Queue: <tspan font-weight="700" fill="#ffffff">500 Frames</tspan></text>
+      <text x="14" y="86" font-size="10.5" fill="#cbd5e1">• Overflow Strategy: <tspan font-weight="700" fill="#fbbf24">Drop Old</tspan></text>
+      <text x="14" y="106" font-size="10.5" fill="#cbd5e1">• Memory Protection: <tspan font-weight="700" fill="#34d399">Active</tspan></text>
+      <text x="14" y="126" font-size="10.5" fill="#cbd5e1">• Frame Throttling: <tspan font-weight="700" fill="#ffffff">PTS-Delta</tspan></text>
+      <text x="14" y="146" font-size="10" fill="#64748b">Zero GPU/CPU memory leaks</text>
+    </g>
+  </g>
+
+  <!-- ==================== COLUMN 3: AI VIDEO ANALYTICS & ANPR ==================== -->
+  <g transform="translate(524, 100)">
+    <rect width="220" height="680" rx="10" fill="url(#panel-grad)" stroke="#1e293b" stroke-width="1.5" filter="url(#card-shadow)"/>
+    <rect x="0" y="0" width="220" height="36" rx="10" fill="#1e293b" fill-opacity="0.6"/>
+    <circle cx="20" cy="18" r="4" fill="#00f0ff"/>
+    <text x="32" y="22" font-size="12" font-weight="700" fill="#ffffff" letter-spacing="0.5">3. AI ANALYTICS &amp; ANPR</text>
+
+    <!-- Stage 1: Vehicle Classifier -->
+    <g transform="translate(14, 52)">
+      <rect width="192" height="76" rx="8" fill="#090e18" stroke="#38bdf8" stroke-width="1" stroke-opacity="0.6"/>
+      <text x="14" y="22" font-size="12" font-weight="700" fill="#ffffff">Stage 1: Vehicle Detection</text>
+      <text x="14" y="40" font-size="10.5" fill="#94a3b8">YOLOv8 Nano Classifier</text>
+      <text x="14" y="56" font-size="10" fill="#64748b">Car, Truck, Bus, Motorcycle</text>
+      <rect x="14" y="61" width="74" height="12" rx="3" fill="#0369a1" fill-opacity="0.4"/>
+      <text x="51" y="70" font-size="8.5" font-weight="700" fill="#38bdf8" text-anchor="middle">CONF &gt;= 0.35</text>
+    </g>
+
+    <!-- Stage 2: Perspective Zoom -->
+    <g transform="translate(14, 138)">
+      <rect width="192" height="80" rx="8" fill="#090e18" stroke="#00f0ff" stroke-width="1" stroke-opacity="0.6"/>
+      <text x="14" y="22" font-size="12" font-weight="700" fill="#ffffff">Stage 2: Perspective Zoom</text>
+      <text x="14" y="40" font-size="10.5" fill="#94a3b8">Vehicle Bumper Isolation</text>
+      <text x="14" y="56" font-size="10" fill="#64748b">Crops lower 70% of vehicle</text>
+      <rect x="14" y="63" width="86" height="12" rx="3" fill="#0e7490" fill-opacity="0.4"/>
+      <text x="57" y="72" font-size="8.5" font-weight="700" fill="#00f0ff" text-anchor="middle">CCTV RESOLUTION</text>
+    </g>
+
+    <!-- Stage 3: Plate Detector -->
+    <g transform="translate(14, 228)">
+      <rect width="192" height="80" rx="8" fill="#090e18" stroke="#38bdf8" stroke-width="1" stroke-opacity="0.6"/>
+      <text x="14" y="22" font-size="12" font-weight="700" fill="#ffffff">Stage 3: Plate Detection</text>
+      <text x="14" y="40" font-size="10.5" fill="#94a3b8">license_plate_detector.pt</text>
+      <text x="14" y="56" font-size="10" fill="#64748b">Deduplication IoU &gt; 0.45</text>
+      <rect x="14" y="63" width="78" height="12" rx="3" fill="#0369a1" fill-opacity="0.4"/>
+      <text x="53" y="72" font-size="8.5" font-weight="700" fill="#38bdf8" text-anchor="middle">CONF &gt;= 0.30</text>
+    </g>
+
+    <!-- Stage 4: Super-Res & OCR -->
+    <g transform="translate(14, 318)">
+      <rect width="192" height="90" rx="8" fill="#090e18" stroke="#34d399" stroke-width="1" stroke-opacity="0.6"/>
+      <text x="14" y="22" font-size="12" font-weight="700" fill="#ffffff">Stage 4: Super-Res &amp; OCR</text>
+      <text x="14" y="40" font-size="10.5" fill="#94a3b8">Bicubic &ge; 70px + CLAHE 2.5</text>
+      <text x="14" y="56" font-size="10" fill="#64748b">Otsu binarization fallback</text>
+      <text x="14" y="70" font-size="10" fill="#64748b">Deep EasyOCR engine</text>
+      <rect x="14" y="74" width="78" height="12" rx="3" fill="#065f46" fill-opacity="0.4"/>
+      <text x="53" y="83" font-size="8.5" font-weight="700" fill="#34d399" text-anchor="middle">3-PASS CONTRAST</text>
+    </g>
+
+    <!-- Positional Indian HSRP Syntax Engine -->
+    <g transform="translate(14, 418)">
+      <rect width="192" height="120" rx="8" fill="#090e18" stroke="#c084fc" stroke-width="1" stroke-opacity="0.6"/>
+      <text x="14" y="22" font-size="12" font-weight="700" fill="#ffffff">HSRP Positional Heuristics</text>
+      <text x="14" y="40" font-size="10" fill="#cbd5e1">• Strips: <tspan fill="#c084fc">IND, INDIA, HSRP</tspan></text>
+      <text x="14" y="58" font-size="10" fill="#cbd5e1">• State [0..1]: <tspan fill="#38bdf8">6&rarr;G, 0&rarr;O</tspan></text>
+      <text x="14" y="76" font-size="10" fill="#cbd5e1">• District [2..3]: <tspan fill="#38bdf8">O&rarr;0, I&rarr;1</tspan></text>
+      <text x="14" y="94" font-size="10" fill="#cbd5e1">• Suffix [6..9]: <tspan fill="#38bdf8">S&rarr;5, Z&rarr;2</tspan></text>
+      <rect x="14" y="101" width="92" height="12" rx="3" fill="#581c87" fill-opacity="0.4"/>
+      <text x="60" y="110" font-size="8.5" font-weight="700" fill="#c084fc" text-anchor="middle">SYNTAX ENFORCED</text>
+    </g>
+
+    <!-- Video Forensic Keyframe Engine -->
+    <g transform="translate(14, 548)">
+      <rect width="192" height="112" rx="8" fill="#090e18" stroke="#f59e0b" stroke-width="1" stroke-opacity="0.6"/>
+      <text x="14" y="22" font-size="12" font-weight="700" fill="#ffffff">Video Forensic Engine</text>
+      <text x="14" y="40" font-size="10.5" fill="#94a3b8">Adaptive 2.5 FPS Sampling</text>
+      <text x="14" y="56" font-size="10" fill="#64748b">Chronological timeline log</text>
+      <text x="14" y="72" font-size="10" fill="#64748b">Highest-conf keyframe crop</text>
+      <rect x="14" y="88" width="86" height="14" rx="3" fill="#78350f" fill-opacity="0.4"/>
+      <text x="57" y="98" font-size="8.5" font-weight="700" fill="#fbbf24" text-anchor="middle">TIMELINE SIGHTINGS</text>
+    </g>
+  </g>
+
+  <!-- ==================== COLUMN 4: CORRELATION & STORAGE ==================== -->
+  <g transform="translate(768, 100)">
+    <rect width="220" height="680" rx="10" fill="url(#panel-grad)" stroke="#1e293b" stroke-width="1.5" filter="url(#card-shadow)"/>
+    <rect x="0" y="0" width="220" height="36" rx="10" fill="#1e293b" fill-opacity="0.6"/>
+    <circle cx="20" cy="18" r="4" fill="#fbbf24"/>
+    <text x="32" y="22" font-size="12" font-weight="700" fill="#ffffff" letter-spacing="0.5">4. INTELLIGENCE &amp; STORAGE</text>
+
+    <!-- Watchlist Engine -->
+    <g transform="translate(14, 52)">
+      <rect width="192" height="104" rx="8" fill="#090e18" stroke="#ef4444" stroke-width="1" stroke-opacity="0.6"/>
+      <text x="14" y="22" font-size="12" font-weight="700" fill="#ffffff">Watchlist Correlation</text>
+      <text x="14" y="40" font-size="10.5" fill="#94a3b8">Levenshtein Fuzzy (dist &le; 1)</text>
+      <text x="14" y="56" font-size="10" fill="#64748b">eGujCop • VAHAN • SARTHI</text>
+      <text x="14" y="72" font-size="10" fill="#64748b">NAFIS Biometric records</text>
+      <rect x="14" y="82" width="86" height="14" rx="3" fill="#7f1d1d" fill-opacity="0.5"/>
+      <text x="57" y="92" font-size="8.5" font-weight="700" fill="#f87171" text-anchor="middle">INSTANT INTERCEPT</text>
+    </g>
+
+    <!-- Anti-Flood Debouncing -->
+    <g transform="translate(14, 166)">
+      <rect width="192" height="80" rx="8" fill="#090e18" stroke="#fbbf24" stroke-width="1" stroke-opacity="0.6"/>
+      <text x="14" y="22" font-size="12" font-weight="700" fill="#ffffff">Anti-Flood Debouncer</text>
+      <text x="14" y="40" font-size="10.5" fill="#94a3b8">60-Second Cooldown Window</text>
+      <text x="14" y="56" font-size="10" fill="#64748b">Suppresses traffic light spam</text>
+      <rect x="14" y="61" width="78" height="12" rx="3" fill="#78350f" fill-opacity="0.4"/>
+      <text x="53" y="70" font-size="8.5" font-weight="700" fill="#fbbf24" text-anchor="middle">ZERO FLOODING</text>
+    </g>
+
+    <!-- Cross-Camera Route Tracer (Scenario #1) -->
+    <g transform="translate(14, 256)">
+      <rect width="192" height="110" rx="8" fill="#090e18" stroke="#00f0ff" stroke-width="1" stroke-opacity="0.6"/>
+      <text x="14" y="22" font-size="12" font-weight="700" fill="#ffffff">Route Tracer (Scenario #1)</text>
+      <text x="14" y="40" font-size="10.5" fill="#94a3b8">Chronological Polyline Path</text>
+      <text x="14" y="56" font-size="10" fill="#cbd5e1">• Haversine Distance: <tspan fill="#00f0ff">Km</tspan></text>
+      <text x="14" y="72" font-size="10" fill="#cbd5e1">• Inter-Camera Speed: <tspan fill="#00f0ff">Km/h</tspan></text>
+      <rect x="14" y="86" width="92" height="14" rx="3" fill="#0e7490" fill-opacity="0.4"/>
+      <text x="60" y="96" font-size="8.5" font-weight="700" fill="#00f0ff" text-anchor="middle">PATH PREDICTION</text>
+    </g>
+
+    <!-- Storage: PostGIS 3.4 -->
+    <g transform="translate(14, 376)">
+      <rect width="192" height="80" rx="8" fill="#090e18" stroke="#38bdf8" stroke-width="1" stroke-opacity="0.6"/>
+      <text x="14" y="22" font-size="12" font-weight="700" fill="#ffffff">PostgreSQL 16 + PostGIS</text>
+      <text x="14" y="40" font-size="10.5" fill="#94a3b8">Spatial GIS Registry</text>
+      <text x="14" y="56" font-size="10" fill="#64748b">Bounding-box queries &amp; logs</text>
+      <rect x="14" y="61" width="74" height="12" rx="3" fill="#0369a1" fill-opacity="0.4"/>
+      <text x="51" y="70" font-size="8.5" font-weight="700" fill="#38bdf8" text-anchor="middle">GEOMETRY (4326)</text>
+    </g>
+
+    <!-- Storage: Redis 7 Event Bus -->
+    <g transform="translate(14, 466)">
+      <rect width="192" height="76" rx="8" fill="#090e18" stroke="#ef4444" stroke-width="1" stroke-opacity="0.6"/>
+      <text x="14" y="22" font-size="12" font-weight="700" fill="#ffffff">Redis 7 Event Bus</text>
+      <text x="14" y="40" font-size="10.5" fill="#94a3b8">Redis Streams &amp; Pub/Sub</text>
+      <text x="14" y="56" font-size="10" fill="#64748b">Sub-millisecond event dispatch</text>
+      <rect x="14" y="61" width="68" height="12" rx="3" fill="#7f1d1d" fill-opacity="0.4"/>
+      <text x="48" y="70" font-size="8.5" font-weight="700" fill="#f87171" text-anchor="middle">PUB / SUB</text>
+    </g>
+
+    <!-- Multi-Tenant RBAC -->
+    <g transform="translate(14, 552)">
+      <rect width="192" height="108" rx="8" fill="#090e18" stroke="#34d399" stroke-width="1" stroke-opacity="0.6"/>
+      <text x="14" y="22" font-size="12" font-weight="700" fill="#ffffff">Multi-Tenant RBAC</text>
+      <text x="14" y="40" font-size="10" fill="#cbd5e1">• SuperAdmin: <tspan fill="#34d399">Full Access</tspan></text>
+      <text x="14" y="56" font-size="10" fill="#cbd5e1">• Police: <tspan fill="#38bdf8">Watchlist &amp; Intercept</tspan></text>
+      <text x="14" y="72" font-size="10" fill="#cbd5e1">• RTO: <tspan fill="#fbbf24">Registration &amp; Tax</tspan></text>
+      <rect x="14" y="84" width="74" height="14" rx="3" fill="#065f46" fill-opacity="0.4"/>
+      <text x="51" y="94" font-size="8.5" font-weight="700" fill="#34d399" text-anchor="middle">JWT TOKENS</text>
+    </g>
+  </g>
+
+  <!-- ==================== COLUMN 5: COMMAND & CONTROL UI ==================== -->
+  <g transform="translate(1012, 100)">
+    <rect width="232" height="680" rx="10" fill="url(#panel-grad)" stroke="#00f0ff" stroke-width="1.5" stroke-opacity="0.5" filter="url(#card-shadow)"/>
+    <rect x="0" y="0" width="232" height="36" rx="10" fill="#1e293b" fill-opacity="0.6"/>
+    <circle cx="20" cy="18" r="4" fill="#00f0ff" filter="url(#glow-cyan)"/>
+    <text x="32" y="22" font-size="12" font-weight="700" fill="#00f0ff" letter-spacing="0.5">5. TACTICAL COMMAND</text>
+
+    <!-- Component 1: 50-Camera Grid -->
+    <g transform="translate(14, 52)">
+      <rect width="204" height="96" rx="8" fill="#090e18" stroke="#38bdf8" stroke-width="1"/>
+      <text x="14" y="22" font-size="12" font-weight="700" fill="#ffffff">50-Camera Live Video Wall</text>
+      <text x="14" y="40" font-size="10.5" fill="#94a3b8">Responsive Surveillance Grid</text>
+      <text x="14" y="58" font-size="10" fill="#64748b">PTS timestamp HUD overlay</text>
+      <text x="14" y="72" font-size="10" fill="#64748b">One-click USB webcam hot-swap</text>
+      <rect x="14" y="78" width="86" height="12" rx="3" fill="#0369a1" fill-opacity="0.4"/>
+      <text x="57" y="87" font-size="8.5" font-weight="700" fill="#38bdf8" text-anchor="middle">50 CHANNELS</text>
+    </g>
+
+    <!-- Component 2: Leaflet GIS Map -->
+    <g transform="translate(14, 158)">
+      <rect width="204" height="96" rx="8" fill="#090e18" stroke="#00f0ff" stroke-width="1"/>
+      <text x="14" y="22" font-size="12" font-weight="700" fill="#ffffff">Leaflet PostGIS GIS Map</text>
+      <text x="14" y="40" font-size="10.5" fill="#94a3b8">Spatial Sensor Coordinates</text>
+      <text x="14" y="58" font-size="10" fill="#64748b">Department-coded map pins</text>
+      <text x="14" y="72" font-size="10" fill="#64748b">Animated route trajectory vectors</text>
+      <rect x="14" y="78" width="80" height="12" rx="3" fill="#0e7490" fill-opacity="0.4"/>
+      <text x="54" y="87" font-size="8.5" font-weight="700" fill="#00f0ff" text-anchor="middle">GIS SPATIAL</text>
+    </g>
+
+    <!-- Component 3: Forensic Inspector -->
+    <g transform="translate(14, 264)">
+      <rect width="204" height="106" rx="8" fill="#090e18" stroke="#f59e0b" stroke-width="1"/>
+      <text x="14" y="22" font-size="12" font-weight="700" fill="#ffffff">CCTV Forensic Inspector</text>
+      <text x="14" y="40" font-size="10.5" fill="#94a3b8">Images &amp; Recorded Video Clips</text>
+      <text x="14" y="58" font-size="10" fill="#64748b">Keyframe viewer + scrubber</text>
+      <text x="14" y="72" font-size="10" fill="#64748b">Second-by-second sighting log</text>
+      <rect x="14" y="84" width="92" height="14" rx="3" fill="#78350f" fill-opacity="0.4"/>
+      <text x="60" y="94" font-size="8.5" font-weight="700" fill="#fbbf24" text-anchor="middle">SNAPSHOTS &amp; VIDEO</text>
+    </g>
+
+    <!-- Component 4: Real-time Alert Bar -->
+    <g transform="translate(14, 380)">
+      <rect width="204" height="96" rx="8" fill="#090e18" stroke="#ef4444" stroke-width="1"/>
+      <text x="14" y="22" font-size="12" font-weight="700" fill="#ffffff">Live Watchlist Alert Feed</text>
+      <text x="14" y="40" font-size="10.5" fill="#94a3b8">Priority Dispatch Cards</text>
+      <text x="14" y="58" font-size="10" fill="#64748b">Synthesized tactical audio alarm</text>
+      <text x="14" y="72" font-size="10" fill="#64748b">One-click police dispatch action</text>
+      <rect x="14" y="78" width="86" height="12" rx="3" fill="#7f1d1d" fill-opacity="0.4"/>
+      <text x="57" y="87" font-size="8.5" font-weight="700" fill="#f87171" text-anchor="middle">PUSH DISPATCH</text>
+    </g>
+
+    <!-- Component 5: Telemetry & Evaluation -->
+    <g transform="translate(14, 486)">
+      <rect width="204" height="174" rx="8" fill="#070b14" stroke="#1e293b" stroke-width="1"/>
+      <text x="14" y="24" font-size="11" font-weight="700" fill="#00f0ff">PLATFORM TELEMETRY</text>
+      <text x="14" y="46" font-size="10.5" fill="#cbd5e1">• UI Framework: <tspan font-weight="700" fill="#ffffff">Google Sans</tspan></text>
+      <text x="14" y="66" font-size="10.5" fill="#cbd5e1">• Font Data: <tspan font-weight="700" fill="#38bdf8">JetBrains Mono</tspan></text>
+      <text x="14" y="86" font-size="10.5" fill="#cbd5e1">• Evaluation Export: <tspan font-weight="700" fill="#34d399">JSON / MD</tspan></text>
+      <text x="14" y="106" font-size="10.5" fill="#cbd5e1">• WebSockets: <tspan font-weight="700" fill="#ffffff">Bidirectional</tspan></text>
+      <text x="14" y="126" font-size="10.5" fill="#cbd5e1">• System Uptime: <tspan font-weight="700" fill="#34d399">99.98% SLA</tspan></text>
+      <text x="14" y="146" font-size="10" fill="#64748b">Certified by Gujarat Police Command</text>
+      <rect x="14" y="154" width="96" height="12" rx="3" fill="#0369a1" fill-opacity="0.3"/>
+      <text x="62" y="163" font-size="8" font-weight="700" fill="#38bdf8" text-anchor="middle">EXECUTIVE READY</text>
+    </g>
+  </g>
+
+  <!-- ==================== FLOW CONNECTORS (LEFT TO RIGHT) ==================== -->
+  <!-- Col 1 to Col 2 -->
+  <path d="M 256 190 L 280 190" stroke="#38bdf8" stroke-width="2" marker-end="url(#arrow-blue)"/>
+  <path d="M 256 220 L 280 220" stroke="#34d399" stroke-width="2" marker-end="url(#arrow-green)"/>
+  <path d="M 256 310 L 280 310" stroke="#c084fc" stroke-width="1.5" stroke-dasharray="3 3" marker-end="url(#arrow-blue)"/>
+  
+  <!-- Col 2 to Col 3 (Streams to ANPR) -->
+  <path d="M 500 200 L 524 200" stroke="#00f0ff" stroke-width="2.2" marker-end="url(#arrow-cyan)"/>
+  <path d="M 500 430 L 524 430" stroke="#34d399" stroke-width="1.8" marker-end="url(#arrow-green)"/>
+
+  <!-- Col 1 directly to Col 3 (Video/Image Files to Forensics) -->
+  <path d="M 256 366 Q 390 366 524 366" fill="none" stroke="#f59e0b" stroke-width="1.5" stroke-dasharray="4 3" marker-end="url(#arrow-amber)"/>
+
+  <!-- Col 3 to Col 4 (Detections to Correlation & Storage) -->
+  <path d="M 744 190 L 768 190" stroke="#00f0ff" stroke-width="2.2" marker-end="url(#arrow-cyan)"/>
+  <path d="M 744 310 L 768 310" stroke="#38bdf8" stroke-width="2" marker-end="url(#arrow-blue)"/>
+  <path d="M 744 470 L 768 470" stroke="#c084fc" stroke-width="1.8" marker-end="url(#arrow-blue)"/>
+
+  <!-- Col 4 to Col 5 (Correlation to Command Center) -->
+  <path d="M 988 180 L 1012 180" stroke="#ef4444" stroke-width="2.2" marker-end="url(#arrow-amber)"/>
+  <path d="M 988 310 L 1012 310" stroke="#00f0ff" stroke-width="2.2" marker-end="url(#arrow-cyan)"/>
+  <path d="M 988 416 L 1012 416" stroke="#38bdf8" stroke-width="2" marker-end="url(#arrow-blue)"/>
+
+</svg>

@@ -74,54 +74,63 @@ The system is evaluated on **50 geographically distributed cameras** spanning **
 
 ## 🏗️ System Architecture
 
+<div align="center">
+  <img src="docs/assets/architecture.svg" alt="Drishti Surveillance System Architecture" width="100%" style="border-radius: 8px; border: 1px solid #1e293b;" />
+  <p align="center"><sub><b>Figure 1:</b> End-to-end 5-tier architecture connecting statewide physical camera sensors to real-time AI inference and geospatial tactical response.</sub></p>
+</div>
+
+<details>
+<summary><b>📐 View Pipeline Flow Diagram (Mermaid Specification)</b></summary>
+<br/>
+
 ```mermaid
-flowchart TB
-    subgraph INGESTION["1. Heterogeneous Ingestion Layer"]
-        C1["IP Cameras / RTSP<br/>(CP PLUS / Hikvision / Dahua)"]
-        C2["USB Webcams<br/>(DirectShow / v4l2)"]
-        C3["Existing VMS Nodes<br/>(Milestone / Genetec)"]
-        C4["DVR / NVR Video Exports<br/>(MP4 / AVI / MKV / MOV)"]
+%%{init: {'theme': 'base', 'themeVariables': {'darkMode': true, 'background': '#070b12', 'primaryColor': '#0f172a', 'primaryTextColor': '#e2e8f0', 'primaryBorderColor': '#00f0ff', 'lineColor': '#38bdf8', 'secondaryColor': '#111827', 'tertiaryColor': '#0d131f'}}}%%
+flowchart LR
+    subgraph INGESTION["1. Ingestion Tier"]
+        direction TB
+        C1["IP Cameras / RTSP"]
+        C2["USB Webcams (DirectShow)"]
+        C3["Existing VMS Feeds"]
+        C4["DVR/NVR Video Files"]
     end
 
-    subgraph GATEWAY["2. Sentinel Stream Gateway & MediaMTX"]
-        GW["StreamGatewayManager<br/>(RTSP-over-TCP • Monotonic PTS • Auto-Reconnect)"]
-        RELAY["MediaMTX RTSP / WebRTC Relay Grid"]
+    subgraph GATEWAY["2. Sentinel Gateway"]
+        direction TB
+        GW["StreamGatewayManager<br/>(Monotonic PTS • TCP)"]
+        RELAY["MediaMTX WebRTC / HLS Grid"]
     end
 
-    subgraph AI_CORE["3. AI Video Analytics & ANPR Pipeline"]
-        YOLO_V["Stage 1: Vehicle Classifier (YOLOv8)"]
-        ZOOM["Stage 2: Perspective Zoom & Bumper Isolation"]
-        YOLO_P["Stage 3: License Plate Detector (YOLOv8)"]
-        OCR["Stage 4: CLAHE Super-Resolution + Positional OCR"]
+    subgraph AI_CORE["3. AI Analytics Pipeline"]
+        direction TB
+        YOLO_V["Stage 1: Vehicle Classifier"]
+        ZOOM["Stage 2: Bumper Crop & Zoom"]
+        YOLO_P["Stage 3: License Plate YOLO"]
+        OCR["Stage 4: Super-Res + Positional OCR"]
     end
 
-    subgraph CORRELATION["4. Real-Time Intelligence & Storage"]
-        DB[("PostgreSQL 16 + PostGIS 3.4<br/>Spatial Registry & Audit Logs")]
-        REDIS[("Redis 7 Event Bus<br/>Alert Streams & Pub/Sub")]
-        WL["Watchlist Correlation Engine<br/>(Levenshtein Fuzzy <= 1 • 60s Debounce)"]
-        TRACE["Route Tracer Engine<br/>(Haversine Distance & Transit Velocity)"]
+    subgraph CORRELATION["4. Real-Time Intelligence"]
+        direction TB
+        DB[("PostgreSQL 16 + PostGIS")]
+        REDIS[("Redis 7 Event Bus")]
+        WL["Watchlist Fuzzy Matcher (Levenshtein)"]
+        TRACE["Route Tracer & Velocity Predictor"]
     end
 
-    subgraph PRESENTATION["5. Command & Control Web Dashboard"]
-        UI["Drishti Tactical Command Center<br/>(Google Sans • Dark Industrial HUD)"]
-        MAP["Leaflet PostGIS Spatial GIS Map"]
-        WALL["50-Camera Live Video Grid"]
-        INSPECT["CCTV Video & Image Forensic Inspector"]
+    subgraph PRESENTATION["5. Command & Control"]
+        direction TB
+        UI["Tactical Command HUD"]
+        MAP["Leaflet PostGIS GIS Map"]
+        WALL["50-Camera Live Video Wall"]
+        INSPECT["Forensic Video / Photo Lab"]
     end
 
-    C1 & C2 & C3 --> GW
-    C4 --> INSPECT
-    GW --> RELAY
-    GW --> AI_CORE
-    YOLO_V --> ZOOM --> YOLO_P --> OCR
-    OCR --> WL
-    WL --> REDIS & DB
-    WL --> TRACE
-    REDIS --> UI
-    DB --> MAP
-    RELAY --> WALL
-    INSPECT --> AI_CORE
+    INGESTION --> GATEWAY
+    GATEWAY --> AI_CORE
+    AI_CORE --> CORRELATION
+    CORRELATION --> PRESENTATION
 ```
+
+</details>
 
 ---
 
