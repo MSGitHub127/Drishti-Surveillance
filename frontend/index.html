@@ -1,0 +1,716 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dhristi Surveillance | Command &amp; Control Platform</title>
+    
+    <!-- Google Sans & JetBrains Mono Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Google+Sans:wght@400;500;600;700&family=Google+Sans+Text:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.cdnfonts.com/css/google-sans" rel="stylesheet">
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY=" crossorigin=""/>
+    <link rel="stylesheet" href="/static/css/styles.css">
+    
+    <!-- Lucide Icons & Chart.js -->
+    <script src="https://unpkg.com/lucide@latest"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js" integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo=" crossorigin=""></script>
+</head>
+<body>
+    <!-- Top Header & Executive Command Bar -->
+    <header class="top-bar">
+        <div class="brand-group">
+            <div class="brand-logo-container" title="Dhristi Surveillance • Command &amp; Control Platform (Team Vayunotics)">
+                <svg class="brand-logo-svg" viewBox="0 0 44 44" width="40" height="40" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <defs>
+                        <linearGradient id="vayu-shield-bg" x1="22" y1="3" x2="22" y2="41" gradientUnits="userSpaceOnUse">
+                            <stop offset="0%" stop-color="#1e3a8a" stop-opacity="0.85"/>
+                            <stop offset="50%" stop-color="#0f172a" stop-opacity="0.95"/>
+                            <stop offset="100%" stop-color="#020617" stop-opacity="0.98"/>
+                        </linearGradient>
+                        <linearGradient id="vayu-cyan-glow" x1="6" y1="3" x2="38" y2="41" gradientUnits="userSpaceOnUse">
+                            <stop offset="0%" stop-color="#38bdf8"/>
+                            <stop offset="50%" stop-color="#00f0ff"/>
+                            <stop offset="100%" stop-color="#2563eb"/>
+                        </linearGradient>
+                        <linearGradient id="vayu-core-beam" x1="13" y1="19" x2="31" y2="19" gradientUnits="userSpaceOnUse">
+                            <stop offset="0%" stop-color="#38bdf8" stop-opacity="0.1"/>
+                            <stop offset="50%" stop-color="#00f0ff" stop-opacity="0.9"/>
+                            <stop offset="100%" stop-color="#38bdf8" stop-opacity="0.1"/>
+                        </linearGradient>
+                        <filter id="vayu-brand-glow" x="-20%" y="-20%" width="140%" height="140%">
+                            <feDropShadow dx="0" dy="0" stdDeviation="2.5" flood-color="#00f0ff" flood-opacity="0.35"/>
+                        </filter>
+                    </defs>
+
+                    <!-- Outer State Tactical Shield / Vector Perimeter -->
+                    <path d="M22 3.5 L37.5 9.5 C37.5 21.5 30 32 22 40.5 C14 32 6.5 21.5 6.5 9.5 Z" 
+                          fill="url(#vayu-shield-bg)" 
+                          stroke="url(#vayu-cyan-glow)" 
+                          stroke-width="1.8" 
+                          stroke-linejoin="round"
+                          filter="url(#vayu-brand-glow)"/>
+
+                    <!-- Surveillance Optical Sensor & Concentric Reticle Radar -->
+                    <circle cx="22" cy="19.5" r="9" stroke="#38bdf8" stroke-width="1.1" stroke-opacity="0.45" stroke-dasharray="2.5 2"/>
+                    <circle cx="22" cy="19.5" r="5.8" stroke="#00f0ff" stroke-width="1.5" stroke-opacity="0.9"/>
+
+                    <!-- Precision Optical Targeting Reticle Ticks -->
+                    <line x1="22" y1="7.5" x2="22" y2="10.5" stroke="#38bdf8" stroke-width="1.75" stroke-linecap="round"/>
+                    <line x1="22" y1="28.5" x2="22" y2="31.5" stroke="#38bdf8" stroke-width="1.75" stroke-linecap="round"/>
+                    <line x1="10" y1="19.5" x2="13" y2="19.5" stroke="#38bdf8" stroke-width="1.75" stroke-linecap="round"/>
+                    <line x1="31" y1="19.5" x2="34" y2="19.5" stroke="#38bdf8" stroke-width="1.75" stroke-linecap="round"/>
+
+                    <!-- Optical AI Sensor Core -->
+                    <line x1="14" y1="19.5" x2="30" y2="19.5" stroke="url(#vayu-core-beam)" stroke-width="1.2" stroke-linecap="round"/>
+                    <circle cx="22" cy="19.5" r="2.5" fill="#00f0ff"/>
+                    <circle cx="22" cy="19.5" r="1" fill="#ffffff"/>
+
+                    <!-- Vayunotics Surveillance Chevron / Vector Wing -->
+                    <path d="M15 25.5 L22 32.5 L29 25.5" fill="none" stroke="url(#vayu-cyan-glow)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                    <path d="M17.5 28 L22 32.5 L26.5 28" fill="none" stroke="#38bdf8" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round" opacity="0.6"/>
+                </svg>
+            </div>
+            <div class="brand-text">
+                <div class="state-label">
+                    <span class="state-indicator-dot"></span>
+                    GUJARAT STATE SURVEILLANCE &bull; COMMAND &amp; CONTROL
+                </div>
+                <div class="title-row">
+                    <h1>Dhristi Surveillance</h1>
+                    <span class="badge team-badge">Team Vayunotics</span>
+                    <span class="badge live-status-badge"><span class="pulse-dot"></span> ACTIVE</span>
+                </div>
+            </div>
+        </div>
+
+        <div class="telemetry-group">
+            <div class="telemetry-capsule">
+                <div class="telemetry-item" title="PostgreSQL 16 + PostGIS Spatial Engine">
+                    <span class="status-dot online"></span>
+                    <span class="t-label">PostGIS</span>
+                </div>
+                <div class="telemetry-item" title="Redis Streams In-Memory Event Bus">
+                    <span class="status-dot online"></span>
+                    <span class="t-label">Redis</span>
+                </div>
+                <div class="telemetry-item" title="Connected Statewide CCTV Cameras">
+                    <i data-lucide="camera" class="t-icon"></i>
+                    <span class="t-val" id="telemetry-cam-count">50 / 50</span>
+                </div>
+                <div class="telemetry-item alert-indicator" title="Active Law Enforcement Alerts">
+                    <i data-lucide="bell" class="t-icon text-alert"></i>
+                    <span class="t-val text-alert" id="telemetry-alert-count">0</span>
+                </div>
+                <div class="telemetry-item webcam-status-item" id="telemetry-webcam-item" title="USB / Hardware Camera Telemetry">
+                    <span class="status-dot standby" id="webcam-pulse-dot"></span>
+                    <span class="t-label">Webcam:</span>
+                    <span class="t-val font-mono" id="telemetry-webcam-val">Standby</span>
+                </div>
+            </div>
+
+            <div class="user-role-selector">
+                <i data-lucide="user-check" class="role-icon"></i>
+                <select id="rbac-role-select" class="role-select" title="Operator RBAC Profile">
+                    <option value="SUPER_ADMIN">State Command (SuperAdmin)</option>
+                    <option value="POLICE_OFFICER">Gujarat Police (Home Dept)</option>
+                    <option value="RTO_OFFICER">Transport Dept (RTO)</option>
+                    <option value="FCS_OFFICER">Civil Supplies (FCS)</option>
+                </select>
+            </div>
+
+            <div class="audio-toggle-container">
+                <button id="btn-audio-toggle" class="btn-icon" title="Toggle Alert Siren (Audio)">
+                    <i data-lucide="volume-2"></i>
+                </button>
+            </div>
+        </div>
+    </header>
+
+    <!-- App Navigation Bar -->
+    <nav class="nav-bar">
+        <div class="nav-tabs">
+            <button class="nav-tab active" data-tab="tab-map">
+                <i data-lucide="map"></i>
+                <span>Live GIS Map</span>
+            </button>
+            <button class="nav-tab" data-tab="tab-streams">
+                <i data-lucide="layout-grid"></i>
+                <span>Video Wall</span>
+            </button>
+            <button class="nav-tab highlight-tab" data-tab="tab-trace">
+                <i data-lucide="git-commit"></i>
+                <span>Route Tracer</span>
+                <span class="tab-chip">AI</span>
+            </button>
+            <button class="nav-tab highlight-tab" data-tab="tab-alerts">
+                <i data-lucide="shield-alert"></i>
+                <span>Alerts Center</span>
+                <span class="nav-pill" id="nav-alert-badge">0</span>
+            </button>
+            <button class="nav-tab" data-tab="tab-watchlist">
+                <i data-lucide="database"></i>
+                <span>Watchlist</span>
+            </button>
+            <button class="nav-tab" data-tab="tab-health">
+                <i data-lucide="activity"></i>
+                <span>System Health</span>
+            </button>
+        </div>
+        <div class="nav-actions">
+            <button id="btn-sync-catalog" class="btn btn-secondary" title="Sync Camera Feeds & Endpoints">
+                <i data-lucide="refresh-cw"></i> Sync Feeds
+            </button>
+            <button id="btn-export-eval-report" class="btn btn-primary" title="Export Certified Audit Report (Markdown/CSV)">
+                <i data-lucide="file-text"></i> Audit Report
+            </button>
+        </div>
+    </nav>
+
+    <!-- Main Content Area -->
+    <main class="main-content">
+
+        <!-- ========================================================= -->
+        <!-- TAB 1: GIS SPATIAL REGISTRY (MODEL 1)                    -->
+        <!-- ========================================================= -->
+        <section id="tab-map" class="tab-panel active">
+            <div class="gis-layout">
+                <div class="gis-sidebar">
+                    <div class="card-header">
+                        <h3><i data-lucide="filter"></i> Camera Registry Filters</h3>
+                    </div>
+                    <div class="filter-body">
+                        <div class="form-group">
+                            <label>Filter by Department</label>
+                            <select id="filter-map-dept" class="form-control">
+                                <option value="">All Departments (26)</option>
+                                <option value="POLICE">Gujarat Police / Home Dept</option>
+                                <option value="RTO">Transport Dept (RTO)</option>
+                                <option value="FCS">Food & Civil Supplies</option>
+                                <option value="PORTS">Maritime & Port Authority</option>
+                                <option value="FOREST">Forest & Wildlife</option>
+                                <option value="PRIVATE">Permitted Private Establishments</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label>Geographic District</label>
+                            <select id="filter-map-district" class="form-control">
+                                <option value="">All Districts</option>
+                                <option value="Valsad">Valsad (South Border)</option>
+                                <option value="Dahod">Dahod (East Border)</option>
+                                <option value="Gir Somnath">Gir Somnath / Veraval</option>
+                                <option value="Jamnagar">Jamnagar (Refinery Corridor)</option>
+                                <option value="Devbhumi Dwarka">Dwarka (Coastal Tip)</option>
+                                <option value="Banaskantha">Banaskantha (North Border)</option>
+                                <option value="Ahmedabad">Ahmedabad Metro</option>
+                                <option value="Gandhinagar">Gandhinagar Capital</option>
+                                <option value="Surat">Surat Metro</option>
+                                <option value="Rajkot">Rajkot Zone</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label>Camera Type</label>
+                            <select id="filter-map-type" class="form-control">
+                                <option value="">All Camera Types</option>
+                                <option value="ANPR">ANPR Dedicated</option>
+                                <option value="Bullet">Fixed Bullet</option>
+                                <option value="PTZ">PTZ Surveillance</option>
+                            </select>
+                        </div>
+                    </div>
+
+                    <div class="card-header border-top">
+                        <h3><i data-lucide="layers"></i> Layer Legend</h3>
+                    </div>
+                    <div class="legend-list">
+                        <div class="legend-item"><span class="legend-color color-police"></span> Home / Police (Blue)</div>
+                        <div class="legend-item"><span class="legend-color color-rto"></span> Transport / RTO (Amber)</div>
+                        <div class="legend-item"><span class="legend-color color-fcs"></span> Food & Supplies (Green)</div>
+                        <div class="legend-item"><span class="legend-color color-ports"></span> Maritime / Forest (Teal)</div>
+                        <div class="legend-item"><span class="legend-color color-private"></span> Permitted Private (Purple)</div>
+                    </div>
+
+                    <div class="card-header border-top">
+                        <h3><i data-lucide="info"></i> Selected Camera Details</h3>
+                    </div>
+                    <div id="selected-camera-card" class="camera-info-card">
+                        <div class="empty-state">Click any camera pin on the Gujarat GIS map to view metadata and stream endpoint.</div>
+                    </div>
+                </div>
+
+                <div class="gis-map-container">
+                    <div id="map"></div>
+                </div>
+            </div>
+        </section>
+
+        <!-- ========================================================= -->
+        <!-- TAB 2: LIVE STREAM MONITORING GRID                        -->
+        <!-- ========================================================= -->
+        <section id="tab-streams" class="tab-panel">
+            <div class="stream-toolbar">
+                <div class="toolbar-left">
+                    <span class="section-title"><i data-lucide="monitor"></i> Live Video Matrix</span>
+                    <span class="stream-protocol-tag">Multi-Camera AI Relay</span>
+                </div>
+                <div class="toolbar-right">
+                    <button class="btn btn-sm btn-primary" id="btn-open-cctv-inspect" title="Upload and inspect standalone CCTV snapshot or image">
+                        <i data-lucide="scan-line"></i> Inspect CCTV Image
+                    </button>
+                    <button class="btn btn-sm btn-secondary" id="btn-toggle-webcam" title="Hot-switch Camera 1 between USB Webcam and Recorded Feed">
+                        <i data-lucide="camera"></i> <span id="btn-webcam-text">Webcam: Standby</span>
+                    </button>
+                    <label>Grid Layout:</label>
+                    <button class="btn btn-sm btn-layout active" data-grid="4">2x2 (4 Feeds)</button>
+                    <button class="btn btn-sm btn-layout" data-grid="6">3x2 (6 Feeds)</button>
+                    <button class="btn btn-sm btn-layout" data-grid="9">3x3 (9 Feeds)</button>
+                </div>
+            </div>
+
+            <div class="stream-grid" id="stream-grid-container">
+                <!-- Dynamically populated camera player tiles -->
+            </div>
+        </section>
+
+        <!-- ========================================================= -->
+        <!-- TAB 3: VEHICLE ROUTE TRACER                               -->
+        <!-- ========================================================= -->
+        <section id="tab-trace" class="tab-panel">
+            <div class="trace-header-card">
+                <div class="trace-search-bar">
+                    <div class="search-input-group">
+                        <i data-lucide="search" class="search-icon"></i>
+                        <input type="text" id="trace-plate-input" placeholder="Enter Vehicle Registration No (e.g. GJ01AB1234, GJ05CD5678)" value="GJ01AB1234">
+                    </div>
+                    <button id="btn-run-trace" class="btn btn-primary">
+                        <i data-lucide="navigation"></i> Reconstruct Route
+                    </button>
+                </div>
+                <div class="quick-test-plates">
+                    <span>Quick Select Sample Plate:</span>
+                    <button class="chip" data-plate="GJ01AB1234">GJ01AB1234 (Primary Target)</button>
+                    <button class="chip" data-plate="GJ05CD5678">GJ05CD5678 (Wanted NDPS)</button>
+                    <button class="chip" data-plate="GJ06XY9999">GJ06XY9999 (Stolen SUV)</button>
+                    <button class="chip" data-plate="GJ10EF4321">GJ10EF4321 (Coastal Suspect)</button>
+                    <button class="chip" data-plate="UNKNOWN999">UNKNOWN999 (Zero-Match Test)</button>
+                </div>
+            </div>
+
+            <div class="trace-results-container" id="trace-results-area">
+                <!-- Route metrics summary cards -->
+                <div class="metrics-row">
+                    <div class="metric-card">
+                        <div class="m-label">TOTAL SIGHTINGS</div>
+                        <div class="m-val" id="metric-sightings">--</div>
+                    </div>
+                    <div class="metric-card">
+                        <div class="m-label">FIRST DETECTED</div>
+                        <div class="m-val text-sm" id="metric-first-seen">--</div>
+                    </div>
+                    <div class="metric-card">
+                        <div class="m-label">LAST SIGHTED</div>
+                        <div class="m-val text-sm" id="metric-last-seen">--</div>
+                    </div>
+                    <div class="metric-card">
+                        <div class="m-label">TRAVERSED DISTANCE</div>
+                        <div class="m-val" id="metric-distance">-- km</div>
+                    </div>
+                    <div class="metric-card">
+                        <div class="m-label">AVERAGE SPEED</div>
+                        <div class="m-val" id="metric-speed">-- km/h</div>
+                    </div>
+                    <div class="metric-card" id="metric-watchlist-status-card">
+                        <div class="m-label">WATCHLIST STATUS</div>
+                        <div class="m-val" id="metric-watchlist-status">Checking...</div>
+                    </div>
+                </div>
+
+                <div class="trace-body-grid">
+                    <!-- Chronological Route Map -->
+                    <div class="trace-map-box">
+                        <div class="box-header">
+                            <h4><i data-lucide="map-pin"></i> Chronological Route Polyline</h4>
+                            <div class="playback-controls">
+                                <button id="btn-playback-step-back" class="btn-icon btn-sm"><i data-lucide="chevron-left"></i></button>
+                                <button id="btn-playback-play" class="btn btn-sm btn-secondary"><i data-lucide="play"></i> Animate</button>
+                                <button id="btn-playback-step-fwd" class="btn-icon btn-sm"><i data-lucide="chevron-right"></i></button>
+                                <span id="playback-step-counter" class="step-badge">Step 1 / 5</span>
+                            </div>
+                        </div>
+                        <div id="trace-map"></div>
+                    </div>
+
+                    <!-- Location-wise Movement History Table -->
+                    <div class="trace-history-box">
+                        <div class="box-header">
+                            <h4><i data-lucide="clock"></i> Timestamped Movement History</h4>
+                            <button id="btn-download-trace-csv" class="btn btn-sm btn-secondary">
+                                <i data-lucide="download"></i> CSV
+                            </button>
+                        </div>
+                        <div class="table-container">
+                            <table class="data-table" id="trace-table">
+                                <thead>
+                                    <tr>
+                                        <th class="num-col">#</th>
+                                        <th>Timestamp (PTS)</th>
+                                        <th>Camera ID</th>
+                                        <th>Location & District</th>
+                                        <th>Dept</th>
+                                        <th class="num-col">Delta</th>
+                                        <th class="num-col">Speed</th>
+                                    </tr>
+                                </thead>
+                                <tbody id="trace-table-body">
+                                    <tr>
+                                        <td colspan="7" class="text-center">Search for a vehicle registration number to inspect movement trajectory.</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- ========================================================= -->
+        <!-- TAB 4: REAL-TIME WATCHLIST ALERTS                         -->
+        <!-- ========================================================= -->
+        <section id="tab-alerts" class="tab-panel">
+            <div class="alerts-layout">
+                <div class="alerts-sidebar">
+                    <div class="card-header">
+                        <h3><i data-lucide="bell-ring"></i> Alert Stream Control</h3>
+                    </div>
+                    <div class="alert-stats-card">
+                        <div class="stat-mini critical-bg">
+                            <span class="mini-label">CRITICAL</span>
+                            <span class="mini-val" id="alert-stat-critical">0</span>
+                        </div>
+                        <div class="stat-mini high-bg">
+                            <span class="mini-label">HIGH</span>
+                            <span class="mini-val" id="alert-stat-high">0</span>
+                        </div>
+                        <div class="stat-mini medium-bg">
+                            <span class="mini-label">MEDIUM</span>
+                            <span class="mini-val" id="alert-stat-medium">0</span>
+                        </div>
+                    </div>
+
+                    <div class="card-header border-top">
+                        <h3><i data-lucide="check-circle-2"></i> Cooldown & Dedup Engine</h3>
+                    </div>
+                    <div class="cooldown-info-box">
+                        <div class="cooldown-item">
+                            <span class="c-label">Alert Debounce Window:</span>
+                            <span class="c-val">60 Seconds</span>
+                        </div>
+                        <div class="cooldown-item">
+                            <span class="c-label">Scope:</span>
+                            <span class="c-val">Per Plate + Camera</span>
+                        </div>
+                        <div class="cooldown-item">
+                            <span class="c-label">Fuzzy OCR Tolerance:</span>
+                            <span class="c-val">&le; 1 Edit Distance</span>
+                        </div>
+                        <div class="cooldown-item">
+                            <span class="c-label">Suppressed Floods:</span>
+                            <span class="c-val" id="stat-suppressed-count">0</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="alerts-feed-container">
+                    <div class="feed-header">
+                        <h3><i data-lucide="radio"></i> Live Watchlist Detection Feed</h3>
+                        <span class="pulse-text"><span class="pulse-dot"></span> Live Stream Active</span>
+                    </div>
+
+                    <div class="alerts-list" id="alerts-container">
+                        <!-- Dynamic Alert Cards -->
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- ========================================================= -->
+        <!-- TAB 5: LAW ENFORCEMENT WATCHLIST                          -->
+        <!-- ========================================================= -->
+        <section id="tab-watchlist" class="tab-panel">
+            <div class="watchlist-toolbar">
+                <div class="toolbar-left">
+                    <h3><i data-lucide="database"></i> Law Enforcement Watchlist</h3>
+                    <span class="subtext">Integrated sources: eGujCop (CCTNS), VAHAN (Stolen/Blacklist), SARTHI (License), AFIS & NAFIS</span>
+                </div>
+                <div class="toolbar-right">
+                    <button id="btn-add-watchlist-modal" class="btn btn-primary">
+                        <i data-lucide="plus-circle"></i> Add Wanted Vehicle
+                    </button>
+                </div>
+            </div>
+
+            <div class="table-container full-height">
+                <table class="data-table" id="watchlist-table">
+                    <thead>
+                        <tr>
+                            <th>Plate Number</th>
+                            <th>Suspect / Registered To</th>
+                            <th>Category</th>
+                            <th>Source Database</th>
+                            <th>FIR / Case Ref</th>
+                            <th>Vehicle Make & Model</th>
+                            <th>Severity</th>
+                            <th>Status</th>
+                            <th>Action</th>
+                        </tr>
+                    </thead>
+                    <tbody id="watchlist-table-body">
+                        <!-- Populated via API -->
+                    </tbody>
+                </table>
+            </div>
+        </section>
+
+        <!-- ========================================================= -->
+        <!-- TAB 6: SYSTEM HEALTH, SLA & GAP ANALYSIS                  -->
+        <!-- ========================================================= -->
+        <section id="tab-health" class="tab-panel">
+            <div class="health-grid">
+                <!-- Diagnostics & Latency -->
+                <div class="health-card">
+                    <div class="card-header">
+                        <h3><i data-lucide="cpu"></i> System Telemetry & Pipeline Diagnostics</h3>
+                    </div>
+                    <div class="diag-body" id="diag-container">
+                        <div class="diag-row">
+                            <span>Platform Status:</span>
+                            <span class="badge badge-success">OPERATIONAL</span>
+                        </div>
+                        <div class="diag-row">
+                            <span>PostgreSQL 16 + PostGIS 3.4:</span>
+                            <span class="badge badge-success">HEALTHY</span>
+                        </div>
+                        <div class="diag-row">
+                            <span>Redis Streams Event Bus:</span>
+                            <span class="badge badge-success">HEALTHY</span>
+                        </div>
+                        <div class="diag-row">
+                            <span>YOLOv8 ANPR Worker Pool:</span>
+                            <span class="badge badge-success">8 WORKERS ACTIVE</span>
+                        </div>
+                        <div class="diag-row">
+                            <span>Frame Sample Interval:</span>
+                            <span>1.5 FPS / stream (PTS-derived)</span>
+                        </div>
+                        <div class="diag-row">
+                            <span>Average Inference Latency:</span>
+                            <span id="health-latency-val">24.5 ms</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Department Distribution Chart -->
+                <div class="health-card">
+                    <div class="card-header">
+                        <h3><i data-lucide="pie-chart"></i> Cameras by Department</h3>
+                    </div>
+                    <div class="chart-box">
+                        <canvas id="chart-dept"></canvas>
+                    </div>
+                </div>
+
+                <!-- Codec Distribution Chart -->
+                <div class="health-card">
+                    <div class="card-header">
+                        <h3><i data-lucide="sliders"></i> Codec & Storage Profiles</h3>
+                    </div>
+                    <div class="chart-box">
+                        <canvas id="chart-codec"></canvas>
+                    </div>
+                </div>
+
+                <!-- Geographical Gap Analysis -->
+                <div class="health-card">
+                    <div class="card-header">
+                        <h3><i data-lucide="alert-circle"></i> Statewide Gap Analysis (80k Target Roadmap)</h3>
+                    </div>
+                    <div class="gap-body">
+                        <div class="gap-item">
+                            <span class="gap-title">Border Checkpost Density (Valsad & Dahod):</span>
+                            <span class="gap-desc">Satisfactory (High-density ANPR installed on NH48 and NH47 corridors).</span>
+                        </div>
+                        <div class="gap-item">
+                            <span class="gap-title">Coastal Vigilance Corridor (Dwarka to Somnath):</span>
+                            <span class="gap-desc">Recommended for expansion: 35 additional edge cameras required along SH-6.</span>
+                        </div>
+                        <div class="gap-item">
+                            <span class="gap-title">Food & Civil Supplies Godown Coverage:</span>
+                            <span class="gap-desc">Currently 7-day retention CP Plus DVRs; recommended for firmware upgrade to RTSP/H.265.</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+    </main>
+
+    <!-- Modal: Add Watchlist Record -->
+    <div id="modal-add-watchlist" class="modal-overlay">
+        <div class="modal-box">
+            <div class="modal-header">
+                <h3><i data-lucide="shield-alert"></i> Add Record to Law Enforcement Watchlist</h3>
+                <button class="btn-close-modal" id="btn-close-wl-modal">&times;</button>
+            </div>
+            <div class="modal-body">
+                <div class="form-row">
+                    <div class="form-group">
+                        <label>Vehicle Plate Number *</label>
+                        <input type="text" id="wl-in-plate" class="form-control" placeholder="e.g. GJ01XY1234" required>
+                    </div>
+                    <div class="form-group">
+                        <label>Suspect / Registered Person Name</label>
+                        <input type="text" id="wl-in-name" class="form-control" placeholder="Full name or alias">
+                    </div>
+                </div>
+                <div class="form-row">
+                    <div class="form-group">
+                        <label>Category *</label>
+                        <select id="wl-in-cat" class="form-control">
+                            <option value="Stolen Vehicle">Stolen Vehicle</option>
+                            <option value="Wanted Criminal">Wanted Criminal</option>
+                            <option value="Missing Person">Missing Person</option>
+                            <option value="Blacklisted Vehicle">Blacklisted Vehicle</option>
+                            <option value="Suspect Watchlist">Suspect Watchlist</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label>Source Database *</label>
+                        <select id="wl-in-source" class="form-control">
+                            <option value="eGujCop">eGujCop (Gujarat Police CCTNS)</option>
+                            <option value="VAHAN">VAHAN (National Vehicle Registry)</option>
+                            <option value="SARTHI">SARTHI (License Authority)</option>
+                            <option value="NAFIS">NAFIS (Biometric Crime Records)</option>
+                            <option value="AFIS">AFIS (Fingerprint Index)</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="form-row">
+                    <div class="form-group">
+                        <label>FIR / Case Reference</label>
+                        <input type="text" id="wl-in-fir" class="form-control" placeholder="e.g. FIR-2026/0122-CR">
+                    </div>
+                    <div class="form-group">
+                        <label>Severity Level</label>
+                        <select id="wl-in-severity" class="form-control">
+                            <option value="CRITICAL">CRITICAL (Instant Dispatch)</option>
+                            <option value="HIGH">HIGH (Intercept at Next Chokdi)</option>
+                            <option value="MEDIUM">MEDIUM (Traffic / Tax Vigilance)</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label>Vehicle Make & Model / Notes</label>
+                    <textarea id="wl-in-notes" class="form-control" rows="2" placeholder="e.g. White Mahindra Scorpio, reported heading towards Golden Chowkdi."></textarea>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button class="btn btn-secondary" id="btn-cancel-wl">Cancel</button>
+                <button class="btn btn-primary" id="btn-save-wl"><i data-lucide="check"></i> Add to Active Watchlist</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal: High-Resolution CCTV Deep ANPR Inspection -->
+    <div id="modal-inspect-cctv" class="modal-overlay">
+        <div class="modal-box" style="max-width: 880px; width: 92vw;">
+            <div class="modal-header">
+                <h3><i data-lucide="scan"></i> High-Resolution CCTV Image &amp; Video Forensic ANPR</h3>
+                <button class="btn-close-modal" id="btn-close-inspect-modal">&times;</button>
+            </div>
+            <div class="modal-body">
+                <p style="font-size: 13px; color: var(--text-secondary); margin-bottom: 8px;">
+                    Upload surveillance snapshots or recorded video footage clips. Multi-scale vehicle-guided localization preserves plate resolution before deep OCR, timeline vehicle tracking, and real-time Watchlist correlation.
+                </p>
+                <div id="inspect-drop-zone" class="drop-zone">
+                    <i data-lucide="upload-cloud" style="width: 44px; height: 44px; stroke-width: 1.5; color: var(--accent-cyan);"></i>
+                    <p style="margin: 8px 0 4px; font-weight: 600; font-size: 14px; color: #fff;">Drag & drop CCTV snapshot or recorded video clip</p>
+                    <span style="font-size: 12px; color: var(--text-muted);">Supports MP4, AVI, MKV, MOV video clips &amp; JPG, PNG, WEBP snapshots (up to 50MB)</span>
+                    <input type="file" id="inspect-cctv-file" accept="image/*,video/mp4,video/x-m4v,video/*,.mkv,.avi,.mov" style="display: none;">
+                </div>
+
+                <div id="inspect-loading" style="display: none; text-align: center; padding: 24px;">
+                    <div class="spinner" style="margin: 0 auto 12px;"></div>
+                    <div id="inspect-loading-text" style="font-size: 13px; color: var(--accent-cyan); font-family: var(--font-mono);">
+                        Executing Multi-Scale Vehicle Localization & Deep OCR...
+                    </div>
+                </div>
+
+                <div id="inspect-results-area" style="display: none; flex-direction: column; gap: 16px; margin-top: 16px;">
+                    <div id="inspect-meta-stats"></div>
+                    
+                    <!-- Single Image Inspection View -->
+                    <div id="inspect-image-view" style="display: grid; grid-template-columns: 1.2fr 1fr; gap: 16px; align-items: start;">
+                        <div style="background: #000; border-radius: 8px; border: 1px solid var(--border-subtle); overflow: hidden; display: flex; align-items: center; justify-content: center; min-height: 240px; max-height: 380px;">
+                            <img id="inspect-annotated-img" alt="Annotated CCTV Inspection" style="max-width: 100%; max-height: 380px; width: auto; height: auto; object-fit: contain; display: block;">
+                        </div>
+                        <div>
+                            <h4 style="font-size: 13px; text-transform: uppercase; letter-spacing: 0.05em; color: var(--text-secondary); margin-bottom: 8px;">
+                                Detected License Plates & Verification
+                            </h4>
+                            <div id="inspect-plates-list" style="max-height: 380px; overflow-y: auto;"></div>
+                        </div>
+                    </div>
+
+                    <!-- Video Recorded Footage Inspection View -->
+                    <div id="inspect-video-view" style="display: none; flex-direction: column; gap: 16px;">
+                        <div style="display: grid; grid-template-columns: 1.1fr 1fr; gap: 16px; align-items: start;">
+                            <div style="background: #000; border-radius: 8px; border: 1px solid var(--border-subtle); overflow: hidden; display: flex; flex-direction: column; align-items: center; justify-content: center; min-height: 240px; max-height: 380px; position: relative;">
+                                <video id="inspect-video-player" controls style="max-width: 100%; max-height: 320px; width: 100%; height: auto; display: none;"></video>
+                                <img id="inspect-video-keyframe" alt="Keyframe Sighting" style="max-width: 100%; max-height: 320px; width: auto; height: auto; object-fit: contain; display: block;">
+                                <div id="inspect-keyframe-label" style="padding: 6px 12px; font-size: 12px; color: var(--accent-cyan); font-family: var(--font-mono); background: rgba(0,0,0,0.7); width: 100%; text-align: center;">
+                                    Keyframe: Select a plate below to view its forensic snapshot
+                                </div>
+                            </div>
+                            <div style="display: flex; flex-direction: column; gap: 12px;">
+                                <div>
+                                    <h4 style="font-size: 13px; text-transform: uppercase; letter-spacing: 0.05em; color: var(--text-secondary); margin-bottom: 8px;">
+                                        Unique Vehicles Sighted in Video
+                                    </h4>
+                                    <div id="inspect-video-plates-list" style="max-height: 180px; overflow-y: auto; display: flex; flex-direction: column; gap: 8px;"></div>
+                                </div>
+                                <div>
+                                    <h4 style="font-size: 13px; text-transform: uppercase; letter-spacing: 0.05em; color: var(--text-secondary); margin-bottom: 8px;">
+                                        Forensic Video Timeline Log
+                                    </h4>
+                                    <div id="inspect-video-timeline" style="max-height: 160px; overflow-y: auto; display: flex; flex-direction: column; gap: 6px;"></div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button class="btn btn-secondary" id="btn-close-inspect-modal-footer">Close</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Scripts -->
+    <script src="/static/js/app.js"></script>
+    <script src="/static/js/map.js"></script>
+    <script src="/static/js/stream.js"></script>
+    <script src="/static/js/alerts.js"></script>
+    <script src="/static/js/trace.js"></script>
+    <script src="/static/js/health.js"></script>
+    <script>
+        // Initialize Lucide icons on page load
+        document.addEventListener("DOMContentLoaded", () => {
+            if (window.lucide) {
+                window.lucide.createIcons();
+            }
+        });
+    </script>
+</body>
+</html>
