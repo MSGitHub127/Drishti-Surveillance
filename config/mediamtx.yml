@@ -1,0 +1,26 @@
+# MediaMTX Configuration for Team Vayunotics CCTV Relay
+# Supports RTSP over TCP, WebRTC (WHEP) for low-latency browser preview, and HLS
+
+logLevel: info
+logDestinations: [stdout]
+
+# RTSP Configuration (Strictly enforces TCP support)
+rtsp: yes
+protocols: [tcp]
+rtspAddress: :8554
+
+# WebRTC / WHEP Configuration (Intended for low-latency browser playback)
+webrtc: yes
+webrtcAddress: :8889
+webrtcAllowCrossOrigin: yes
+
+# HLS Configuration (Intended for dashboard & mobile fallback)
+hls: yes
+hlsAddress: :8888
+hlsAllowCrossOrigin: yes
+hlsSegmentCount: 3
+hlsSegmentDuration: 1s
+
+# Path patterns to dynamically accept relayed camera streams
+paths:
+  all_others:
