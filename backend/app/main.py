@@ -152,6 +152,9 @@ async def lifespan(app: FastAPI):
     # 3. Wire listeners
     watchlist_engine.add_alert_listener(on_watchlist_alert)
     anpr_engine.add_subscriber(on_anpr_detection)
+    gateway_manager.add_default_subscriber(
+        lambda cid, frame, ts, epoch, meta=None: anpr_engine.submit_frame(cid, frame, ts, epoch, metadata=meta)
+    )
 
     # 4. Start ANPR Engine worker loop
     import asyncio

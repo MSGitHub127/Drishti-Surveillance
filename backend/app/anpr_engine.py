@@ -23,8 +23,19 @@ from app.schemas import PlateDetectionEvent
 
 logger = logging.getLogger("cctv.anpr")
 
-# Regex for standard Indian vehicle registration plates (e.g. GJ01AB1234, GJ20KL1122, MH12DE1234)
-INDIAN_PLATE_PATTERN = re.compile(r"^[A-Z]{2}[0-9]{1,2}[A-Z]{1,3}[0-9]{4}$")
+# Valid Indian State / Union Territory RTO codes (eliminates random English words hallucinating as plates)
+VALID_INDIAN_STATES = {
+    "AN", "AP", "AR", "AS", "BR", "CH", "CG", "DD", "DL", "DN", "GA", "GJ",
+    "HP", "HR", "JH", "JK", "KA", "KL", "LA", "LD", "MH", "ML", "MN", "MP",
+    "MZ", "NL", "OD", "PB", "PY", "RJ", "SK", "TN", "TR", "TS", "UK", "UP", "WB"
+}
+
+# Regex for Indian vehicle registration plates:
+# Standard: State (2 letters) + District (1-2 digits) + Series (0-3 letters) + Number (4 digits)
+# BH Series: Year (2 digits) + BH + Number (4 digits) + Letters (1-2 letters)
+INDIAN_PLATE_PATTERN = re.compile(
+    r"^([A-Z]{2}[0-9]{1,2}[A-Z]{0,3}[0-9]{4}|[0-9]{2}BH[0-9]{4}[A-Z]{1,2})$"
+)
 
 class ANPREngine:
     """
@@ -48,8 +59,8 @@ class ANPREngine:
         self.avg_inference_latency_ms = 0.0
 
         # Positional OCR error substitution dictionaries
-        self.char_to_num = {'O': '0', 'I': '1', 'Z': '2', 'S': '5', 'B': '8', 'G': '6', 'Q': '0', 'D': '0', 'A': '4'}
-        self.num_to_char = {'0': 'O', '1': 'I', '2': 'Z', '5': 'S', '8': 'B', '6': 'G', '4': 'A'}
+        self.char_to_num = {'O': '0', 'I': '1', 'Z': '2', 'S': '5', 'B': '8', 'G': '6', 'Q': '0', 'D': '0', 'A': '4', 'T': '7', 'E': '3', 'L': '1', 'C': '0'}
+        self.num_to_char = {'0': 'O', '1': 'I', '2': 'Z', '5': 'S', '8': 'B', '6': 'G', '4': 'A', '7': 'T', '3': 'E'}
 
         # Registered event subscribers (Watchlist correlation, DB persistence, WebSocket)
         self.event_subscribers: List[Any] = []
@@ -115,8 +126,8 @@ class ANPREngine:
         # Remove spaces, dashes, dots, and convert to uppercase
         clean = re.sub(r"[^A-Za-z0-9]", "", raw_text).upper()
 
-        # Strip common Indian HSRP prefixes: IND, INDIA, HSRP, BHARAT
-        for pfx in ["INDIA", "HSRP", "BHARAT", "IND"]:
+        # Strip common Indian HSRP prefixes: IND, INDIA, HSRP, BHARAT and OCR misreads (1ND, INO, etc.)
+        for pfx in ["INDIA", "HSRP", "BHARAT", "IND", "1NDIA", "1ND", "INO", "1NO"]:
             if clean.startswith(pfx) and len(clean) >= len(pfx) + 8:
                 clean = clean[len(pfx):]
                 break
@@ -124,12 +135,21 @@ class ANPREngine:
         if len(clean) < 8 or len(clean) > 11:
             return None
 
+        # Check BH (Bharat Series) directly
+        if re.match(r"^[0-9]{2}BH[0-9]{4}[A-Z]{1,2}$", clean):
+            return clean
+
         clean_chars = list(clean)
 
         # 1. Fix State Code (first 2 chars must be alpha)
         for i in range(2):
             if clean_chars[i] in self.num_to_char:
                 clean_chars[i] = self.num_to_char[clean_chars[i]]
+
+        state_code = "".join(clean_chars[:2])
+        if state_code not in VALID_INDIAN_STATES:
+            # Reject non-Indian state words (e.g. "DELL", "WINDOWS", "NOTEBOOK")
+            return None
 
         # 2. Fix District Code (chars 2 and 3 must be digits)
         last4_start = len(clean_chars) - 4
@@ -154,7 +174,7 @@ class ANPREngine:
         result = "".join(clean_chars)
         if INDIAN_PLATE_PATTERN.match(result):
             return result
-        return result if len(result) >= 9 else None
+        return None
 
     def _read_plate_ocr(self, crop: np.ndarray) -> Tuple[str, float]:
         """
@@ -366,19 +386,126 @@ class ANPREngine:
             raw_text, ocr_conf = self._read_plate_ocr(crop)
             normalized = self.normalize_indian_plate(raw_text)
 
-            # Accept valid Indian plate, or fallback to cleaned alphanumeric plate if length >= 3
-            clean_raw = re.sub(r"[^A-Za-z0-9]", "", raw_text).upper()
-            final_plate = normalized or (clean_raw if len(clean_raw) >= 3 else None)
-
-            if final_plate:
+            if normalized:
                 results.append({
                     "class": "license_plate",
                     "confidence": max(cp["conf"], ocr_conf),
                     "bbox": [x1, y1, x2, y2],
                     "plate_text": raw_text,
-                    "normalized_plate": final_plate,
+                    "normalized_plate": normalized,
                     "vehicle_type": cp["vehicle_type"]
                 })
+
+        # Stage 4: Direct Frame & Multi-line OCR Fallback (Vital for Webcam / Mobile Phone Screen / Handheld Inspection)
+        if not results and self.ocr_reader is not None:
+            try:
+                scale = 1.0
+                scan_frame = frame
+                # If frame is large, downscale for faster OCR without losing plate legibility
+                if w > 800:
+                    scale = 800.0 / w
+                    scan_frame = cv2.resize(frame, (800, int(h * scale)), interpolation=cv2.INTER_AREA)
+
+                # Prepare standard and inverted passes (inverted is critical for dark-mode phone screens)
+                gray = cv2.cvtColor(scan_frame, cv2.COLOR_BGR2GRAY)
+                ocr_passes = [scan_frame, cv2.bitwise_not(gray)]
+
+                for img_pass in ocr_passes:
+                    ocr_res = self.ocr_reader.readtext(img_pass)
+                    if not ocr_res:
+                        continue
+
+                    tokens = []
+                    for bbox, raw_text, conf in ocr_res:
+                        pts = np.array(bbox)
+                        bx1 = int(pts[:, 0].min() / scale)
+                        by1 = int(pts[:, 1].min() / scale)
+                        bx2 = int(pts[:, 0].max() / scale)
+                        by2 = int(pts[:, 1].max() / scale)
+                        clean = re.sub(r"[^A-Za-z0-9]", "", raw_text).upper()
+                        tokens.append({
+                            "bbox": [max(0, bx1), max(0, by1), min(w, bx2), min(h, by2)],
+                            "raw": raw_text,
+                            "clean": clean,
+                            "conf": float(conf)
+                        })
+
+                    # Sort tokens in natural spatial reading order (top-to-bottom, left-to-right)
+                    tokens_sorted = sorted(tokens, key=lambda t: (t["bbox"][1] // 35, t["bbox"][0]))
+
+                    # Sliding window (1, 2, 3, 4 tokens) to catch single, two-line, and spaced plates on phone screens
+                    for window_size in [1, 2, 3, 4]:
+                        for idx in range(len(tokens_sorted) - window_size + 1):
+                            group = tokens_sorted[idx : idx + window_size]
+                            combined_clean = "".join(g["clean"] for g in group)
+                            norm = self.normalize_indian_plate(combined_clean)
+                            if norm:
+                                ubx1 = min(g["bbox"][0] for g in group)
+                                uby1 = min(g["bbox"][1] for g in group)
+                                ubx2 = max(g["bbox"][2] for g in group)
+                                uby2 = max(g["bbox"][3] for g in group)
+                                avg_conf = sum(g["conf"] for g in group) / len(group)
+                                results.append({
+                                    "class": "license_plate",
+                                    "confidence": max(avg_conf, 0.85),
+                                    "bbox": [ubx1, uby1, ubx2, uby2],
+                                    "plate_text": " ".join(g["raw"] for g in group),
+                                    "normalized_plate": norm,
+                                    "vehicle_type": "Car"
+                                })
+                                break
+                        if results:
+                            break
+
+                    if results:
+                        break
+
+                # Horizontal flip check for mirrored webcam feeds if still not detected
+                if not results and w > 0 and h > 0:
+                    try:
+                        flip_ocr = self.ocr_reader.readtext(cv2.flip(scan_frame, 1))
+                        tokens = []
+                        scan_w = scan_frame.shape[1]
+                        for bbox, raw_text, conf in flip_ocr:
+                            pts = np.array(bbox)
+                            fbx1 = int((scan_w - pts[:, 0].max()) / scale)
+                            fby1 = int(pts[:, 1].min() / scale)
+                            fbx2 = int((scan_w - pts[:, 0].min()) / scale)
+                            fby2 = int(pts[:, 1].max() / scale)
+                            clean = re.sub(r"[^A-Za-z0-9]", "", raw_text).upper()
+                            tokens.append({
+                                "bbox": [max(0, fbx1), max(0, fby1), min(w, fbx2), min(h, fby2)],
+                                "raw": raw_text,
+                                "clean": clean,
+                                "conf": float(conf)
+                            })
+                        tokens_sorted = sorted(tokens, key=lambda t: (t["bbox"][1] // 35, t["bbox"][0]))
+                        for window_size in [1, 2, 3, 4]:
+                            for idx in range(len(tokens_sorted) - window_size + 1):
+                                group = tokens_sorted[idx : idx + window_size]
+                                combined_clean = "".join(g["clean"] for g in group)
+                                norm = self.normalize_indian_plate(combined_clean)
+                                if norm:
+                                    ubx1 = min(g["bbox"][0] for g in group)
+                                    uby1 = min(g["bbox"][1] for g in group)
+                                    ubx2 = max(g["bbox"][2] for g in group)
+                                    uby2 = max(g["bbox"][3] for g in group)
+                                    avg_conf = sum(g["conf"] for g in group) / len(group)
+                                    results.append({
+                                        "class": "license_plate",
+                                        "confidence": max(avg_conf, 0.85),
+                                        "bbox": [ubx1, uby1, ubx2, uby2],
+                                        "plate_text": " ".join(g["raw"] for g in group),
+                                        "normalized_plate": norm,
+                                        "vehicle_type": "Car"
+                                    })
+                                    break
+                            if results:
+                                break
+                    except Exception:
+                        pass
+            except Exception as direct_err:
+                logger.debug(f"Direct OCR scan note: {direct_err}")
 
         latency = (time.time() - start_time) * 1000.0
         self.avg_inference_latency_ms = (self.avg_inference_latency_ms * 0.9) + (latency * 0.1)

@@ -56,7 +56,7 @@ class CameraStreamWorker:
         self.department = department
         self.sample_interval_sec = 1.0 / max(sample_fps, 0.1)
 
-        self.running = False
+        self.running = True
         self.cap: Optional[cv2.VideoCapture] = None
         self.last_pts_ms: float = 0.0
         self.anchor_wall_clock: Optional[float] = None
@@ -181,20 +181,29 @@ class CameraStreamWorker:
                 dev_idx = int(webcam_env_idx.strip())
 
             logger.info(f"[{self.camera_id}] Connecting LIVE hardware camera device (index {dev_idx})...")
-            # Fix B: Retry up to 3 times with 300ms delays to allow DirectShow exclusive handle release
+            # Retry up to 3 times with 500ms delays to allow DirectShow exclusive handle release
             backend = cv2.CAP_DSHOW if os.name == "nt" else cv2.CAP_ANY
             for attempt in range(3):
-                self.cap = cv2.VideoCapture(dev_idx, backend)
-                if self.cap and self.cap.isOpened():
-                    break
+                try:
+                    self.cap = cv2.VideoCapture(dev_idx, backend)
+                    if self.cap and self.cap.isOpened():
+                        break
+                except Exception as e:
+                    logger.warning(f"[{self.camera_id}] DirectShow open attempt {attempt} error: {e}")
                 if self.cap:
-                    self.cap.release()
+                    try:
+                        self.cap.release()
+                    except Exception:
+                        pass
                     self.cap = None
-                time.sleep(0.3)
+                time.sleep(0.5)
 
             # Fallback attempt with default backend if DSHOW failed
             if not self.cap or not self.cap.isOpened():
-                self.cap = cv2.VideoCapture(dev_idx)
+                try:
+                    self.cap = cv2.VideoCapture(dev_idx)
+                except Exception as e:
+                    logger.warning(f"[{self.camera_id}] Default backend open error: {e}")
 
             if self.cap and self.cap.isOpened():
                 # Fix D: Pacing and resolution tuning for low CPU decode latency & zero stale frames
@@ -393,9 +402,10 @@ class CameraStreamWorker:
             self.latest_timestamp_iso = timestamp_iso
             self.last_frame_time = time.time()
 
-            # Rate throttle: Sample only 1-2 frames per second for AI ANPR
+            # Rate throttle: Sample 1.5-2.5 frames per second for AI ANPR (higher responsiveness on webcam)
             now_time = time.time()
-            if (now_time - last_sample_wall_time) >= self.sample_interval_sec:
+            effective_interval = 0.4 if self.source_type == "hardware_webcam" else self.sample_interval_sec
+            if (now_time - last_sample_wall_time) >= effective_interval:
                 last_sample_wall_time = now_time
                 meta = {
                     "lat": self.lat,
@@ -441,6 +451,12 @@ class StreamGatewayManager:
         self.workers: Dict[str, CameraStreamWorker] = {}
         self.tasks: Dict[str, asyncio.Task] = {}
         self.camera_metadata: Dict[str, dict] = {}
+        self.default_subscribers: List[Callable] = []
+
+    def add_default_subscriber(self, callback: Callable):
+        """Registers a global subscriber (e.g. ANPR frame ingestion) attached to all camera stream workers."""
+        if callback not in self.default_subscribers:
+            self.default_subscribers.append(callback)
 
     def register_camera(
         self,
@@ -471,7 +487,7 @@ class StreamGatewayManager:
 
     async def start_stream(self, camera_id: str, subscriber_callback: Optional[Callable] = None):
         """Paces load: Starts capture for actively requested camera."""
-        if camera_id in self.workers and self.workers[camera_id].running:
+        if camera_id in self.workers:
             self.workers[camera_id].last_active_time = time.time()
             if subscriber_callback:
                 self.workers[camera_id].add_subscriber(subscriber_callback)
@@ -494,6 +510,8 @@ class StreamGatewayManager:
             district=meta.get("district"),
             department=meta.get("department")
         )
+        for def_sub in self.default_subscribers:
+            worker.add_subscriber(def_sub)
         if subscriber_callback:
             worker.add_subscriber(subscriber_callback)
 
@@ -552,9 +570,18 @@ class StreamGatewayManager:
         if camera_id in self.workers:
             subscribers = list(self.workers[camera_id]._frame_subscribers)
         self.stop_stream(camera_id)
-        await asyncio.sleep(0.3)
-        for sub in (subscribers or [None]):
-            await self.start_stream(camera_id, subscriber_callback=sub)
+        # Give DirectShow/USB hardware device handle enough time to close cleanly
+        await asyncio.sleep(0.8)
+        await self.start_stream(camera_id)
+        if camera_id in self.workers:
+            for sub in subscribers:
+                if sub:
+                    self.workers[camera_id].add_subscriber(sub)
+            for def_sub in self.default_subscribers:
+                if def_sub:
+                    self.workers[camera_id].add_subscriber(def_sub)
+        # Give worker loop brief window to open capture
+        await asyncio.sleep(0.5)
 
     async def shutdown(self):
         """Clean shutdown of all active stream workers."""
